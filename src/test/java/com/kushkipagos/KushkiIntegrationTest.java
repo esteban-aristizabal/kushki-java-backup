@@ -1,4 +1,4 @@
-package org.kushki;
+package com.kushkipagos;
 
 import org.junit.Before;
 ***REMOVED***
