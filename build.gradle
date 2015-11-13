@@ -8,8 +8,9 @@ apply plugin: '***REMOVED***ndbugs'
 
 group 'com.kushkipagos'
 version '1.0-SNAPSHOT'
+archivesBaseName 'kushki-java'
 
-sourceCompatibility = 1.7
+sourceCompatibility 1.7
 
 repositories {
     mavenCentral()
@@ -83,6 +84,24 @@ buildscript {
 ***REMOVED***
 ***REMOVED***
 
+task javadocJar(type: Jar) {
+    classi***REMOVED***er = 'javadoc'
+    from javadoc
+***REMOVED***
+
+task sourcesJar(type: Jar) {
+    classi***REMOVED***er = 'sources'
+    from sourceSets.main.allSource
+***REMOVED***
+
+artifacts {
+    archives javadocJar, sourcesJar
+***REMOVED***
+
+signing {
+    sign con***REMOVED***gurations.archives
+***REMOVED***
+
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -118,7 +137,7 @@ uploadArchives {
                 developers {
                     developer {
                         id 'kushki'
-                        name 'kushki'
+                        name 'Kushki Pagos'
             ***REMOVED***
         ***REMOVED***
     ***REMOVED***
