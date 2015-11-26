@@ -21,4 +21,16 @@ public class Transaction {
     public JsonNode getResponseBody() {
         return response.getEntity(JsonNode.class);
 ***REMOVED***
+
+    public String getTicketNumber() {
+        return getResponseAttribute("ticket_number");
+***REMOVED***
+
+    public String getResponseText() {
+        return getResponseAttribute("response_text");
+***REMOVED***
+
+    private String getResponseAttribute(String attribute) {
+        return getResponseBody().get(attribute).asText();
+***REMOVED***
 ***REMOVED***
