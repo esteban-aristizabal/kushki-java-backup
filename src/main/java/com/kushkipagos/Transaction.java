@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.ClientResponse;
 
 public class Transaction {
     private ClientResponse response;
+    private JsonNode body;
 
     public Transaction(ClientResponse response) {
         this.response = response;
@@ -19,7 +20,8 @@ public class Transaction {
 ***REMOVED***
 
     public JsonNode getResponseBody() {
-        return response.getEntity(JsonNode.class);
+        body = response.getEntity(JsonNode.class);
+        return body;
 ***REMOVED***
 
     public String getTicketNumber() {
@@ -31,6 +33,6 @@ public class Transaction {
 ***REMOVED***
 
     private String getResponseAttribute(String attribute) {
-        return getResponseBody().get(attribute).asText();
+        return body.get(attribute).asText();
 ***REMOVED***
 ***REMOVED***
