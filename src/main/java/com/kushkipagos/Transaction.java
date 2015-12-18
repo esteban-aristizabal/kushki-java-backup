@@ -9,6 +9,7 @@ public class Transaction {
 
     public Transaction(ClientResponse response) {
         this.response = response;
+        body = response.getEntity(JsonNode.class);
 ***REMOVED***
 
     public ClientResponse getResponse() {
@@ -20,7 +21,6 @@ public class Transaction {
 ***REMOVED***
 
     public JsonNode getResponseBody() {
-        body = response.getEntity(JsonNode.class);
         return body;
 ***REMOVED***
 
