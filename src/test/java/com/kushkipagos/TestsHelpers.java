@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomUtils.nextDouble;
+import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.hamcrest.CoreMatchers.is;
 ***REMOVED***
 import static org.mockito.Matchers.any;
@@ -71,8 +72,24 @@ public ***REMOVED***nal class TestsHelpers {
         ***REMOVED***eld.set(kushki, client);
 ***REMOVED***
 
+    public static Double getRandomAmount(boolean valid) {
+        double[] validCents = {0.0, 0.08, 0.11, 0.59, 0.6***REMOVED***;
+        double[] invalidCents = {0.05, 0.1, 0.21, 0.61, 0.62, 0.63***REMOVED***;
+
+        double cents;
+        if (valid) {
+            int centPosition = nextInt(0, validCents.length - 1);
+            cents = validCents[centPosition];
+***REMOVED*** else {
+            int centPosition = nextInt(0, invalidCents.length - 1);
+            cents = invalidCents[centPosition];
+***REMOVED***
+        double amount = nextInt(1, 9999) + cents;
+        return amount;
+***REMOVED***
+
     public static Double getRandomAmount() {
-        return Double.parseDouble(String.format("%.2f", nextDouble(1, 99)));
+        return getRandomAmount(true);
 ***REMOVED***
 
     public static Map<String, String> getCardData() {
