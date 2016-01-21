@@ -13,6 +13,7 @@ import javax.crypto.IllegalBlockSizeException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomUtils.nextDouble;
@@ -72,6 +73,15 @@ public ***REMOVED***nal class TestsHelpers {
         ***REMOVED***eld.set(kushki, client);
 ***REMOVED***
 
+    public static Double getRandomDouble(Double min, Double max) {
+        Random r = new Random();
+        return min + (max - min) * r.nextDouble();
+***REMOVED***
+
+    public static Integer getRandomInteger(Integer min, Integer max) {
+        return nextInt(min, max + 1);
+***REMOVED***
+
     public static Double getRandomAmount(boolean valid) {
         double[] validCents = {0.0, 0.08, 0.11, 0.59, 0.6***REMOVED***;
         double[] invalidCents = {0.05, 0.1, 0.21, 0.61, 0.62, 0.63***REMOVED***;
@@ -91,6 +101,14 @@ public ***REMOVED***nal class TestsHelpers {
         return getRandomAmount(true);
 ***REMOVED***
 
+    public static Integer getRandomMonths() {
+        return nextInt(1, 13);
+***REMOVED***
+
+    public static Double getRandomInterest() {
+        return getRandomDouble(0.01, 0.99);
+***REMOVED***
+
     public static Map<String, String> getCardData() {
         Map<String, String> cardParams = new HashMap<>(5);
         cardParams.put("name", randomAlphabetic(20));
@@ -100,17 +118,4 @@ public ***REMOVED***nal class TestsHelpers {
         cardParams.put("cvv", "123");
         return cardParams;
 ***REMOVED***
-
-    public static void assertThatChargeThrowsExceptionWithInvalidAmount(Kushki kushki, Double amount, String exceptionMessage) {
-        Exception exception = null;
-***REMOVED***
-            String token = randomAlphabetic(10);
-            kushki.charge(token, amount);
-***REMOVED*** catch (KushkiException | BadPaddingException | JsonProcessingException | IllegalBlockSizeException e) {
-            exception = e;
-***REMOVED***
-        Assert.assertNotNull(exception);
-        assertThat(exception.getMessage(), is(exceptionMessage));
-***REMOVED***
-
 ***REMOVED***
