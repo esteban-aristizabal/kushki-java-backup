@@ -13,16 +13,14 @@ public class Transaction {
 ***REMOVED***
 
     public ClientResponse getResponse() {
-        return response;
-***REMOVED***
+        return response;***REMOVED***
 
     public boolean isSuccessful() {
         return response.getStatus() == 200;
 ***REMOVED***
 
     public JsonNode getResponseBody() {
-        return body;
-***REMOVED***
+        return body;***REMOVED***
 
     public String getTicketNumber() {
         return getResponseAttribute("ticket_number");
@@ -37,8 +35,7 @@ public class Transaction {
 ***REMOVED***
 
     public Double getApprovedAmount() {
-        return Double.parseDouble(getResponseAttribute("approved_amount"));
-***REMOVED***
+        return Double.parseDouble(getResponseAttribute("approved_amount"));***REMOVED***
 
     public String getResponseCode() {
         return getResponseAttribute("response_code");
