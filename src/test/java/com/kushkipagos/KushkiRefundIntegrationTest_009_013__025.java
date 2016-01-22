@@ -17,12 +17,13 @@ import static com.kushkipagos.IntegrationTestsHelpers.*;
 /**
  * Created by lmunda on 1/22/16 10:33.
  */
-public class KushkiRefundIntegrationTest_009_013__024 {
+public class KushkiRefundIntegrationTest_009_013__025 {
     private Kushki kushki;
     private Transaction tokenTransaction;
     private Transaction chargeTransaction;
     private Transaction refundTransaction;
     private Double amount;
+    private String ticket;
 
     @Before
     public void setup() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
@@ -32,7 +33,7 @@ public class KushkiRefundIntegrationTest_009_013__024 {
         amount = TestsHelpers.getRandomAmount();
         String token = tokenTransaction.getToken();
         chargeTransaction = kushki.charge(token, amount);
-        String ticket = chargeTransaction.getTicketNumber();
+        ticket = chargeTransaction.getTicketNumber();
 
         refundTransaction = kushki.refundCharge(ticket, amount);
 ***REMOVED***
@@ -61,15 +62,12 @@ public class KushkiRefundIntegrationTest_009_013__024 {
 ***REMOVED***
 
 ***REMOVED***
-    public void shouldReturnFailedRefundTransactionAfterVoidingCharge_TC_024() throws BadPaddingException, IllegalBlockSizeException, JsonProcessingException, KushkiException {
-        String ticket = chargeTransaction.getTicketNumber();
+    public void shouldReturnFailedVoidTransactionAfterRefundingCharge_TC_025() throws BadPaddingException, IllegalBlockSizeException, JsonProcessingException, KushkiException {
         Transaction voidTransaction = kushki.voidCharge(ticket, amount);
-
-        Transaction refundTransaction = kushki.refundCharge(ticket, amount);
 
         assertsValidTransaction(tokenTransaction);
         assertsValidTransaction(chargeTransaction);
-        assertsValidTransaction(voidTransaction);
-        assertsTransaction(refundTransaction, false, "Transacción no encontrada", "222");
+        assertsValidTransaction(refundTransaction);
+        assertsTransaction(voidTransaction, false, "Anulación de venta no permitida", "231");
 ***REMOVED***
 ***REMOVED***
