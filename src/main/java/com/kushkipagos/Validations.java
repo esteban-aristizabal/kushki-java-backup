@@ -3,7 +3,10 @@ package com.kushkipagos;
 /**
  * Created by lmunda on 1/21/16 14:07.
  */
-public class Validations {
+public ***REMOVED***nal class Validations {
+
+    private Validations() {
+***REMOVED***
 
     public static String validateAmount(Double amount) throws KushkiException {
         return Validations.validateNumber(amount, 0, 12, "El monto");
