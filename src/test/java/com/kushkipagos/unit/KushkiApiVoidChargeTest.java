@@ -1,7 +1,12 @@
-package com.kushkipagos;
+package com.kushkipagos.unit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kushkipagos.Kushki;
+import com.kushkipagos.KushkiException;
+import com.kushkipagos.Transaction;
+import com.kushkipagos.AurusEncryption;
+import com.kushkipagos.commons.TestsHelpers;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.junit.Before;
@@ -41,7 +46,7 @@ public class KushkiApiVoidChargeTest {
     public void shouldVoidChargeWithTokenAndTicket() throws IllegalBlockSizeException, IllegalAccessException, BadPaddingException, NoSuchFieldException, KushkiException, JsonProcessingException {
         String ticket = randomAlphabetic(10);
         Double amount = TestsHelpers.getRandomAmount();
-        WebResource.Builder builder = TestsHelpers.mockWebBuilder(kushki, Kushki.VOID_URL);
+        WebResource.Builder builder = UnitTestsHelpers.mockWebBuilder(kushki, Kushki.VOID_URL);
         kushki.voidCharge(ticket, amount);
         verify(builder).post(eq(ClientResponse.class), any(Map.class));
 ***REMOVED***
@@ -52,8 +57,8 @@ public class KushkiApiVoidChargeTest {
         Double amount = TestsHelpers.getRandomAmount();
         AurusEncryption encryption = mock(AurusEncryption.class);
         String encrypted = randomAlphabetic(10);
-        TestsHelpers.mockEncryption(kushki, encryption, encrypted);
-        WebResource.Builder builder = TestsHelpers.mockWebBuilder(kushki, Kushki.VOID_URL);
+        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
+        WebResource.Builder builder = UnitTestsHelpers.mockWebBuilder(kushki, Kushki.VOID_URL);
         kushki.voidCharge(ticket, amount);
 
         ArgumentCaptor<Map> encryptedParams = ArgumentCaptor.forClass(Map.class);
@@ -73,7 +78,7 @@ public class KushkiApiVoidChargeTest {
     public void shouldReturnTransactionObjectAfterVoidingCharge() throws NoSuchFieldException, IllegalAccessException, JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String ticket = randomAlphabetic(10);
         Double amount = TestsHelpers.getRandomAmount();
-        WebResource.Builder builder = TestsHelpers.mockClient(kushki, Kushki.VOID_URL);
+        WebResource.Builder builder = UnitTestsHelpers.mockClient(kushki, Kushki.VOID_URL);
         ClientResponse response = mock(ClientResponse.class);
         when(builder.post(eq(ClientResponse.class), any())).thenReturn(response);
         Transaction transaction = kushki.voidCharge(ticket, amount);
