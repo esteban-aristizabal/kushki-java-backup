@@ -99,6 +99,7 @@ artifacts {
 ***REMOVED***
 
 signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") ***REMOVED***
     sign con***REMOVED***gurations.archives
 ***REMOVED***
 
