@@ -64,6 +64,10 @@ test {
     outputs.upToDateWhen { false ***REMOVED***
 ***REMOVED***
 
+jar {
+    archiveName 'Kushki.jar'
+***REMOVED***
+
 pmd {
     targetJdk = '1.7'
     toolVersion = '4.3'
