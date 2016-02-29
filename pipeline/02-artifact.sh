@@ -1,3 +1,6 @@
 ***REMOVED***
-gradle install
+gradle fatJar
 ***REMOVED***
+
+# ARTIFACTS:
+# ARTIFACT build/libs
