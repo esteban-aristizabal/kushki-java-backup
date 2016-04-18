@@ -19,49 +19,33 @@ repositories {
 ***REMOVED***
 ***REMOVED***
 
-sourceSets {
-    test {
-        java {
-            srcDirs = ['src/test/java/com/kushkipagos/unit', 'src/test/java/com/kushkipagos/commons']
-***REMOVED***
-***REMOVED***
-    integrationTest {
-        java {
-//            compileClasspath += main.output + test.output
-//            runtimeClasspath += main.output + test.output
-            srcDirs = ['src/test/java/com/kushkipagos/integration', 'src/test/java/com/kushkipagos/commons']
-***REMOVED***
-***REMOVED***
-***REMOVED***
 
 con***REMOVED***gurations {
+    unitTestCompile.extendsFrom testCompile
+    unitTestRumtime.extendsFrom testRuntime
+
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
 ***REMOVED***
 
 
 dependencies {
-    compile(
-        'com.sun.jersey:jersey-client:1.19',
-        'org.glass***REMOVED***sh.jersey.media:jersey-media-json-jackson:2.22.1'
-    )
-    testCompile(
-        'junit:junit:4.11',
-        'org.apache.commons:commons-lang3:3.4',
-        'org.hamcrest:hamcrest-all:1.3',
-        'org.mockito:mockito-all:2.0.2-beta',
-        'pl.pragmatists:JUnitParams:1.0.4'
-    )
-    integrationTestCompile(
-        group + ':Kushki:' + version
-    )
+    compile 'org.glass***REMOVED***sh.jersey.media:jersey-media-json-jackson:2.22.1',
+            'org.glass***REMOVED***sh.jersey.core:jersey-client:2.22.2'
+
+    testCompile 'junit:junit:4.11',
+            'org.apache.commons:commons-lang3:3.4',
+            'org.hamcrest:hamcrest-all:1.3',
+            'org.mockito:mockito-all:2.0.2-beta',
+            'pl.pragmatists:JUnitParams:1.0.4'
 ***REMOVED***
 
-test {
-    dependsOn pmdMain, pmdTest, ***REMOVED***ndbugsMain, ***REMOVED***ndbugsTest
-    testClassesDir = sourceSets.test.output.classesDir
-    classpath = sourceSets.test.runtimeClasspath
-    outputs.upToDateWhen { false ***REMOVED***
+task unitTest(type: Test) {
+    include 'com/kushkipagos/unit/**'
+***REMOVED***
+
+task integrationTest(type: Test) {
+    include 'com/kushkipagos/integration/**'
 ***REMOVED***
 
 jar {
@@ -74,15 +58,15 @@ pmd {
 ***REMOVED***
 
 project.ext.pmdRuleSets = [
-    'basic',
-    'braces',
-    'clone',
-    'codesize',
-    'logging-java',
-    'migrating',
-    'strictexception',
-    'typeresolution',
-    'unusedcode',
+        'basic',
+        'braces',
+        'clone',
+        'codesize',
+        'logging-java',
+        'migrating',
+        'strictexception',
+        'typeresolution',
+        'unusedcode',
 ]
 
 pmdMain {
@@ -134,18 +118,12 @@ task sourcesJar(type: Jar) {
 task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'API de Java para realizar transacciones con el backend de Kushki',
-            'Implementation-Version': version,
-            'Main-Class': 'com.kushkipagos.Kushki'
+                'Implementation-Version': version,
+                'Main-Class': 'com.kushkipagos.Kushki'
 ***REMOVED***
     archiveName 'Kushki.jar'
     from { con***REMOVED***gurations.compile.collect { it.isDirectory() ? it : zipTree(it) ***REMOVED*** ***REMOVED***
     with jar
-***REMOVED***
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    outputs.upToDateWhen { false ***REMOVED***
 ***REMOVED***
 
 artifacts {
@@ -156,49 +134,3 @@ signing {
     required { gradle.taskGraph.hasTask("uploadArchives") ***REMOVED***
     sign con***REMOVED***gurations.archives
 ***REMOVED***
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) ***REMOVED***
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-    ***REMOVED***
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-    ***REMOVED***
-
-            pom.project {
-                name 'kushki-java'
-                packaging 'jar'
-                description 'Kushki Java bindings'
-                url 'https://github.com/Senescyt/sniese-commons.git'
-                scm {
-                    url 'scm:https://github.com/Kushki/kushki-java.git'
-                    connection 'scm:https://github.com/Kushki/kushki-java.git'
-                    developerConnection 'scm:https://github.com/Kushki/kushki-java.git'
-        ***REMOVED***
-
-                licenses {
-                    license {
-                        name 'MIT'
-                        url 'http://choosealicense.com/licenses/mit'
-                        distribution 'repo'
-            ***REMOVED***
-        ***REMOVED***
-
-                developers {
-                    developer {
-                        id 'kushki'
-                        name 'Kushki Pagos'
-            ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-
-check.dependsOn integrationTest
-integrationTest.mustRunAfter test

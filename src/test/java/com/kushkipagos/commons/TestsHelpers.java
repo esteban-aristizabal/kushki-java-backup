@@ -1,5 +1,7 @@
 package com.kushkipagos.commons;
 
+import com.kushkipagos.Amount;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -40,7 +42,12 @@ public ***REMOVED***nal class TestsHelpers {
         return nextInt(1, 9999) + cents;
 ***REMOVED***
 
-    public static Double getRandomAmount() {
+    public static Amount getRandomAmount() {
+//        return getRandomAmount(true);
+        return new Amount(1d, 1d, 1d, 1d, 1d);
+***REMOVED***
+
+    public static Double getRandomDoubleAmount() {
         return getRandomAmount(true);
 ***REMOVED***
 

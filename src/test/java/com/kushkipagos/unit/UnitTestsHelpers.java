@@ -3,12 +3,17 @@ package com.kushkipagos.unit;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.kushkipagos.AurusEncryption;
 import com.kushkipagos.Kushki;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+//import com.sun.jersey.api.client.Client;
+//import com.sun.jersey.api.client.ClientResponse;
+//import com.sun.jersey.api.client.WebResource;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+***REMOVED***
 ***REMOVED***
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -26,6 +31,28 @@ public ***REMOVED***nal class UnitTestsHelpers {
 
 ***REMOVED***
 
+    public static Invocation.Builder mockInvocationBuilder(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
+        Invocation.Builder builder = mockClient(kushki, baseUrl, url);
+        Response response = mock(Response.class);
+        when(response.readEntity(JsonNode.class)).thenReturn(mock(JsonNode.class));
+        when(builder.post(any(Entity.class))).thenReturn(response);
+
+        return builder;
+***REMOVED***
+
+    public static Invocation.Builder mockClient(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
+        Client client = mock(Client.class);
+        injectMockClient(kushki, client);
+        WebTarget webTarget = mock(WebTarget.class);
+        WebTarget webTargetPath = mock(WebTarget.class);
+        Invocation.Builder invocationBuilder = mock(Invocation.Builder.class);
+        when(client.target(baseUrl)).thenReturn(webTarget);
+        when(webTarget.path(url)).thenReturn(webTargetPath);
+        when(webTargetPath.request(MediaType.APPLICATION_JSON_TYPE)).thenReturn(invocationBuilder);
+
+        return invocationBuilder;
+***REMOVED***
+
     public static void mockEncryption(Kushki kushki, AurusEncryption encryption, String encrypted) throws NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException {
         injectMockEncryption(kushki, encryption);
         when(encryption.encryptMessageChunk(any(String.class))).thenReturn(encrypted);
@@ -36,26 +63,6 @@ public ***REMOVED***nal class UnitTestsHelpers {
         Field ***REMOVED***eld = klass.getDeclaredField("encryption");
         ***REMOVED***eld.setAccessible(true);
         ***REMOVED***eld.set(kushki, encryption);
-***REMOVED***
-
-    public static WebResource.Builder mockClient(Kushki kushki, String url) throws NoSuchFieldException, IllegalAccessException {
-        Client client = mock(Client.class);
-        injectMockClient(kushki, client);
-        WebResource webResource = mock(WebResource.class);
-        WebResource.Builder requestWithType = mock(WebResource.Builder.class);
-        WebResource.Builder requestWithAccept = mock(WebResource.Builder.class);
-        when(client.resource(url)).thenReturn(webResource);
-        when(webResource.type(MediaType.APPLICATION_JSON_TYPE)).thenReturn(requestWithType);
-        when(requestWithType.accept(MediaType.APPLICATION_JSON_TYPE)).thenReturn(requestWithAccept);
-        return requestWithAccept;
-***REMOVED***
-
-    public static WebResource.Builder mockWebBuilder(Kushki kushki, String url) throws NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException {
-        WebResource.Builder builder = mockClient(kushki, url);
-        ClientResponse response = mock(ClientResponse.class);
-        when(response.getEntity(JsonNode.class)).thenReturn(mock(JsonNode.class));
-        when(builder.post(eq(ClientResponse.class), any(Map.class))).thenReturn(response);
-        return builder;
 ***REMOVED***
 
     private static void injectMockClient(Kushki kushki, Client client) throws NoSuchFieldException, IllegalAccessException {

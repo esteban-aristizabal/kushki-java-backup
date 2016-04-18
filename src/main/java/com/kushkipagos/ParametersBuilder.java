@@ -23,7 +23,7 @@ public ***REMOVED***nal class ParametersBuilder {
         return encryptParams(kushki, params);
 ***REMOVED***
 
-    public static Map<String, String> getChargeParameters(Kushki kushki, String token, String amount) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException {
+    public static Map<String, String> getChargeParameters(Kushki kushki, String token, Amount amount) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String params = buildAndStringifyChargeParameters(kushki, token, amount);
         return encryptParams(kushki, params);
 ***REMOVED***
@@ -53,13 +53,16 @@ public ***REMOVED***nal class ParametersBuilder {
         return mapper.writeValueAsString(parameters);
 ***REMOVED***
 
-    private static String buildAndStringifyChargeParameters(Kushki kushki, String token, String amount) throws JsonProcessingException {
+    private static String buildAndStringifyChargeParameters(Kushki kushki, String token, Amount amount) throws JsonProcessingException, KushkiException {
+        ObjectMapper mapperAmount = new ObjectMapper();
+        String stringi***REMOVED***edAmount = mapperAmount.writeValueAsString(amount.toHash());
+
         Map<String, String> parameters = getCommonParameters(kushki);
         parameters.put("transaction_token", token);
-        parameters.put("transaction_amount", amount);
+        parameters.put("transaction_amount", stringi***REMOVED***edAmount);
 
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(parameters);
+        ObjectMapper mapperParameters = new ObjectMapper();
+        return mapperParameters.writeValueAsString(parameters);
 ***REMOVED***
 
     private static String buildAndStringifyDeferredChargeParameters(Kushki kushki, String token, String amount, String months, String interest) throws JsonProcessingException {
