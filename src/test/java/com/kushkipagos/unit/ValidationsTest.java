@@ -77,20 +77,6 @@ public class ValidationsTest {
         assertThat(exception.getMessage(), is(exceptionMessage));
 ***REMOVED***
 
-***REMOVED***
-    @Parameters(method = "invalidParametersAndExceptionMessages")
-    public void shouldThrowKushkiExceptionIfDeferredChargeParametersAreInvalid(Double amount, Integer months, Double interest, String exceptionMessage) {
-        Exception exception = null;
-***REMOVED***
-            String token = randomAlphabetic(10);
-            kushki.deferredCharge(token, amount, months, interest);
-***REMOVED*** catch (KushkiException | BadPaddingException | JsonProcessingException | IllegalBlockSizeException e) {
-            exception = e;
-***REMOVED***
-        Assert.assertNotNull(exception);
-        assertThat(exception.getMessage(), is(exceptionMessage));
-***REMOVED***
-
     @SuppressWarnings("unused")
     private Object[][] invalidNumbersAndExceptionMessages() {
         Double tooLong = getRandomDouble(1000000000000.0, 9999999999999999999.9);
