@@ -21,12 +21,12 @@ import static org.mockito.Mockito.when;
 /**
  * Created by lmunda on 2/16/16 14:55.
  */
-public ***REMOVED***nal class UnitTestsHelpers {
+***REMOVED***nal class UnitTestsHelpers {
     private UnitTestsHelpers() {
 
 ***REMOVED***
 
-    public static Invocation.Builder mockInvocationBuilder(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
+    static Invocation.Builder mockInvocationBuilder(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
         Invocation.Builder builder = mockClient(kushki, baseUrl, url);
         Response response = mock(Response.class);
         when(response.readEntity(JsonNode.class)).thenReturn(mock(JsonNode.class));
@@ -35,7 +35,7 @@ public ***REMOVED***nal class UnitTestsHelpers {
         return builder;
 ***REMOVED***
 
-    public static Invocation.Builder mockClient(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
+    static Invocation.Builder mockClient(Kushki kushki, String baseUrl, String url) throws NoSuchFieldException, IllegalAccessException {
         Client client = mock(Client.class);
         injectMockClient(kushki, client);
         WebTarget webTarget = mock(WebTarget.class);
@@ -48,7 +48,7 @@ public ***REMOVED***nal class UnitTestsHelpers {
         return invocationBuilder;
 ***REMOVED***
 
-    public static void mockEncryption(Kushki kushki, AurusEncryption encryption, String encrypted) throws NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException {
+    static void mockEncryption(Kushki kushki, AurusEncryption encryption, String encrypted) throws NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException {
         injectMockEncryption(kushki, encryption);
         when(encryption.encryptMessageChunk(any(String.class))).thenReturn(encrypted);
 ***REMOVED***
