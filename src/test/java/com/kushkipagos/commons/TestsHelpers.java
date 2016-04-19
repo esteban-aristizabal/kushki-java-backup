@@ -23,10 +23,6 @@ public ***REMOVED***nal class TestsHelpers {
         return min + (max - min) * r.nextDouble();
 ***REMOVED***
 
-    public static Integer getRandomInteger(Integer min, Integer max) {
-        return nextInt(min, max + 1);
-***REMOVED***
-
     public static Double getRandomAmount(boolean valid) {
         double[] validCents = {0.0, 0.08, 0.11, 0.59, 0.6***REMOVED***;
         double[] invalidCents = {0.05, 0.1, 0.21, 0.61, 0.62, 0.63***REMOVED***;
@@ -43,7 +39,6 @@ public ***REMOVED***nal class TestsHelpers {
 ***REMOVED***
 
     public static Amount getRandomAmount() {
-//        return getRandomAmount(true);
         return new Amount(1d, 1d, 1d, 1d, 1d);
 ***REMOVED***
 
@@ -53,10 +48,6 @@ public ***REMOVED***nal class TestsHelpers {
 
     public static Integer getRandomMonths() {
         return nextInt(1, 13);
-***REMOVED***
-
-    public static Double getRandomInterest() {
-        return getRandomDouble(0.01, 0.99);
 ***REMOVED***
 
     public static Map<String, String> getValidCardData() {
