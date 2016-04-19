@@ -50,11 +50,6 @@ public ***REMOVED***nal class IntegrationTestsHelpers {
         return new Kushki(merchantId, language, currency);
 ***REMOVED***
 
-    static Transaction getValidTokenTransaction(Kushki kushki) throws BadPaddingException, IllegalBlockSizeException, JsonProcessingException {
-        Map<String, String> cardParams = getValidCardData();
-        return kushki.requestToken(cardParams);
-***REMOVED***
-
     static void assertsTransaction(Transaction transaction, Boolean isSuccessful,
                                    String expectedMessage, String expectedCode) {
         Boolean resultSuccessful = transaction.isSuccessful();

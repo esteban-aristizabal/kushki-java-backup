@@ -38,11 +38,6 @@ public class KushkiApiTest {
 ***REMOVED***
 
 ***REMOVED***
-    public void shouldHaveTokensURL() {
-        assertThat(Kushki.TOKENS_URL, is("tokens"));
-***REMOVED***
-
-***REMOVED***
     public void shouldHaveChargeURL() {
         assertThat(Kushki.CHARGE_URL, is("charge"));
 ***REMOVED***
