@@ -17,7 +17,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
 
 public class Kushki {
-    public static ***REMOVED***nal String BASE_URL = "https://ping.aurusinc.com/kushki/api/v1";
+    public static ***REMOVED***nal String BASE_URL = "https://uat.aurusinc.com/kushki/api/v1";
 
     public static ***REMOVED***nal String TOKENS_URL = "tokens";
     public static ***REMOVED***nal String CHARGE_URL = "charge";
