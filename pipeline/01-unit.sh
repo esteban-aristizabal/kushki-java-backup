@@ -1,2 +1,2 @@
 ***REMOVED***
-gradle test
+gradle unitTest
