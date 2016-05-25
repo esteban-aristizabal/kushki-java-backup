@@ -1,3 +1,11 @@
+# kushki-java
+
+## Build status
+
+|   | Status |
+|---|---|
+| CI         | [![Build Status](https://snap-ci.com/Kushki/kushki-java/branch/master/build_image)](https://snap-ci.com/Kushki/kushki-java/branch/master) |
+
 ## CI Pipeline
 The pipeline is in SnapCI, the steps are de***REMOVED***ned in `.sh` ***REMOVED***les in the `pipeline` folder in the main repository.
 These ***REMOVED***les are executed by each of the steps de***REMOVED***ned in SnapCI, if environment variables or artifacts have to be
