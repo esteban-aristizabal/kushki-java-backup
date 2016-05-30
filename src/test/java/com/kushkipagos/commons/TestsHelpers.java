@@ -39,7 +39,7 @@ public ***REMOVED***nal class TestsHelpers {
 ***REMOVED***
 
     public static Amount getRandomAmount() {
-        return new Amount(1d, 1d, 1d, 1d, 1d);
+        return new Amount(1d, 1d, 1d, 1d);
 ***REMOVED***
 
     public static Double getRandomDoubleAmount() {
