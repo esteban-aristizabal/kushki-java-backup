@@ -2,6 +2,7 @@
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kushkipagos.Kushki;
+import com.kushkipagos.KushkiEnvironment;
 import com.kushkipagos.ParametersBuilder;
 import com.kushkipagos.Transaction;
 
@@ -12,7 +13,6 @@ import javax.crypto.IllegalBlockSizeException;
 ***REMOVED***
 import java.util.Map;
 
-import static com.kushkipagos.Kushki.BASE_URL;
 import static com.kushkipagos.Kushki.TOKENS_URL;
 import static com.kushkipagos.commons.TestsHelpers.getValidCardData;
 
@@ -33,12 +33,12 @@ import static com.kushkipagos.commons.TestsHelpers.getValidCardData;
 
     static Transaction requestToken(Kushki kushki, Map<String, String> cardParams) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException {
         Map<String, String> parameters = ParametersBuilder.getTokenParameters(kushki, cardParams);
-        return post(TOKENS_URL, parameters);
+        return post(parameters);
 ***REMOVED***
 
-    private static Transaction post(String url, Map<String, String> parameters) {
+    private static Transaction post(Map<String, String> parameters) {
 ***REMOVED***
-        WebTarget target = client.target(BASE_URL).path(url);
+        WebTarget target = client.target(KushkiEnvironment.TESTING.getUrl()).path(TOKENS_URL);
 
 ***REMOVED***
         Response response = invocationBuilder.post(Entity.entity(parameters, MediaType.APPLICATION_JSON_TYPE));

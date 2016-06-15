@@ -17,8 +17,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
 
 public class Kushki {
-    public static ***REMOVED***nal String BASE_URL = "https://uat.aurusinc.com/kushki/api/v1";
-
     public static ***REMOVED***nal String TOKENS_URL = "tokens";
     public static ***REMOVED***nal String CHARGE_URL = "charge";
     public static ***REMOVED***nal String DEFERRED_CHARGE_URL = "deferred";
@@ -26,10 +24,16 @@ public class Kushki {
     public static ***REMOVED***nal String REFUND_URL = "refund";
 
     private ***REMOVED***nal Client client;
-    private String merchantId;
-    private String language;
-    private String currency;
-    private AurusEncryption encryption;
+    private ***REMOVED***nal KushkiEnvironment environment;
+
+    private ***REMOVED***nal String defaultLanguage = "es";
+    private ***REMOVED***nal String defaultCurrency = "USD";
+    private ***REMOVED***nal KushkiEnvironment defaultEnvironment = KushkiEnvironment.PRODUCTION;
+
+    private ***REMOVED***nal String merchantId;
+    private ***REMOVED***nal String language;
+    private ***REMOVED***nal String currency;
+    private ***REMOVED***nal AurusEncryption encryption;
 
     public Kushki(String merchantId, String language, String currency) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException, InvalidKeySpecException {
         this.merchantId = merchantId;
@@ -37,6 +41,34 @@ public class Kushki {
         this.currency = currency;
         this.encryption = new AurusEncryption();
         this.client = ClientBuilder.newClient();
+        this.environment = defaultEnvironment;
+***REMOVED***
+
+    public Kushki(String merchantId, String language, String currency, KushkiEnvironment environment) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException, InvalidKeySpecException {
+        this.merchantId = merchantId;
+        this.language = language;
+        this.currency = currency;
+        this.encryption = new AurusEncryption();
+        this.client = ClientBuilder.newClient();
+        this.environment = environment;
+***REMOVED***
+
+    public Kushki(String merchantId) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, IOException {
+        this.merchantId = merchantId;
+        this.language = defaultLanguage;
+        this.currency = defaultCurrency;
+        this.encryption = new AurusEncryption();
+        this.client = ClientBuilder.newClient();
+        this.environment = defaultEnvironment;
+***REMOVED***
+
+    public Kushki(String merchantId, KushkiEnvironment environment) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, IOException {
+        this.merchantId = merchantId;
+        this.language = defaultLanguage;
+        this.currency = defaultCurrency;
+        this.encryption = new AurusEncryption();
+        this.client = ClientBuilder.newClient();
+        this.environment = environment;
 ***REMOVED***
 
     public String getMerchantId() {
@@ -47,8 +79,12 @@ public class Kushki {
         return language;
 ***REMOVED***
 
-    String getCurrency() {
+    public String getCurrency() {
         return currency;
+***REMOVED***
+
+    public KushkiEnvironment getEnvironment() {
+        return environment;
 ***REMOVED***
 
     AurusEncryption getEncryption() {
@@ -72,7 +108,7 @@ public class Kushki {
 ***REMOVED***
 
     private Transaction post(String url, Map<String, String> parameters) {
-        WebTarget target = client.target(BASE_URL).path(url);
+        WebTarget target = client.target(environment.getUrl()).path(url);
 
 ***REMOVED***
         Response response = invocationBuilder.post(Entity.entity(parameters, MediaType.APPLICATION_JSON_TYPE));
