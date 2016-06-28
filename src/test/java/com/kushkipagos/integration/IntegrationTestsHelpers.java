@@ -14,9 +14,6 @@ import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.is;
 ***REMOVED***
 
-/**
- * Created by lmunda on 1/21/16 16:16.
- */
 ***REMOVED***nal class IntegrationTestsHelpers {
 
     ***REMOVED***nal static int THREAD_SLEEP = 1000;
@@ -34,9 +31,7 @@ import static org.hamcrest.CoreMatchers.is;
         if (isSecret) {
             merchantId = SECRET_MERCHANT_ID;
 ***REMOVED***
-        String language = "es";
-        String currency = "USD";
-        return new Kushki(merchantId, language, currency, KushkiEnvironment.TESTING);
+        return new Kushki(merchantId, "es", "USD", KushkiEnvironment.TESTING);
 ***REMOVED***
 
     static void assertsTransaction(Transaction transaction, Boolean isSuccessful,
