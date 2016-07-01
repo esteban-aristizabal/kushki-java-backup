@@ -85,6 +85,9 @@ pmdTest {
 
 tasks.withType(Test) {
     reports.html.destination = ***REMOVED***le("${reporting.baseDir***REMOVED***/${name***REMOVED***")
+    testLogging {
+        showStandardStreams = true
+***REMOVED***
 ***REMOVED***
 
 tasks.withType(FindBugs) {
