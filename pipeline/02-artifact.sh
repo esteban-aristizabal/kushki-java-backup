@@ -1,5 +1,4 @@
 ***REMOVED***
-gradle fatJar
 ***REMOVED***
 
 # ARTIFACTS:
