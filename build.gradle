@@ -1,13 +1,27 @@
+buildscript {
+    repositories {
+        jcenter()
+***REMOVED***
+    dependencies {
+        classpath 'com.github.townsfolk:gradle-release:1.2'
+***REMOVED***
+***REMOVED***
+
+plugins {
+    id 'com.jfrog.bintray' version '1.7'
+***REMOVED***
+
+group 'com.kushkipagos'
+version '1.0.0'
+
+apply from: 'deploy.gradle'
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: 'signing'
 apply plugin: 'release'
 apply plugin: 'pmd'
 apply plugin: '***REMOVED***ndbugs'
-
-group 'com.kushkipagos'
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.7
 
@@ -19,7 +33,6 @@ repositories {
 ***REMOVED***
 ***REMOVED***
 
-
 con***REMOVED***gurations {
     unitTestCompile.extendsFrom testCompile
     unitTestRumtime.extendsFrom testRuntime
@@ -27,7 +40,6 @@ con***REMOVED***gurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
 ***REMOVED***
-
 
 dependencies {
     compile 'org.glass***REMOVED***sh.jersey.media:jersey-media-json-jackson:2.22.1',
@@ -46,10 +58,6 @@ task unitTest(type: Test) {
 
 task integrationTest(type: Test) {
     include 'com/kushkipagos/integration/**'
-***REMOVED***
-
-jar {
-    archiveName 'Kushki.jar'
 ***REMOVED***
 
 pmd {
@@ -97,43 +105,6 @@ tasks.withType(FindBugs) {
 ***REMOVED***
 ***REMOVED***
 
-buildscript {
-    repositories {
-        jcenter()
-***REMOVED***
-    dependencies {
-        classpath group: 'eu.appsatori', name: 'gradle-fatjar-plugin', version: '0.3'
-        classpath 'com.github.townsfolk:gradle-release:1.2'
-***REMOVED***
-***REMOVED***
-
-task javadocJar(type: Jar) {
-    classi***REMOVED***er = 'javadoc'
-    from javadoc
-***REMOVED***
-
-task sourcesJar(type: Jar) {
-    classi***REMOVED***er = 'sources'
-    from sourceSets.main.allSource
-***REMOVED***
-
-//create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'API de Java para realizar transacciones con el backend de Kushki',
-                'Implementation-Version': version,
-                'Main-Class': 'com.kushkipagos.Kushki'
-***REMOVED***
-    archiveName 'Kushki.jar'
-    from { con***REMOVED***gurations.compile.collect { it.isDirectory() ? it : zipTree(it) ***REMOVED*** ***REMOVED***
-    with jar
-***REMOVED***
-
 artifacts {
     archives javadocJar, sourcesJar
-***REMOVED***
-
-signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") ***REMOVED***
-    sign con***REMOVED***gurations.archives
 ***REMOVED***
