@@ -1,4 +1,12 @@
 ***REMOVED***
+
+set -e
+
+artifact_version=$(gradle --quiet printVersion)
+
+git tag --annotate "v$artifact_version" -m "Release for version $artifact_version"
+git push --tags
+
 gradle clean bintrayUpload
 
 # ENVIRONMENT VARIABLES:
