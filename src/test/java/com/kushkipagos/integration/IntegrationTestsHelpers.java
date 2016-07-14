@@ -17,6 +17,7 @@ import static org.hamcrest.CoreMatchers.is;
 ***REMOVED***nal class IntegrationTestsHelpers {
 
     ***REMOVED***nal static int THREAD_SLEEP = 1000;
+    ***REMOVED***nal static int THREAD_SLEEP_VOID = 4000;
 
     public static ***REMOVED***nal String MERCHANT_ID = "10000001641310597258111220";
     private static ***REMOVED***nal String SECRET_MERCHANT_ID = "10000001641344874123111220";
