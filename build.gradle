@@ -97,6 +97,7 @@ pmdTest {
 
 tasks.withType(Test) {
     reports.html.destination = ***REMOVED***le("${reporting.baseDir***REMOVED***/${name***REMOVED***")
+    outputs.upToDateWhen { false ***REMOVED***
     testLogging {
         showStandardStreams = true
 ***REMOVED***

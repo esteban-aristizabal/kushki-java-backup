@@ -64,6 +64,7 @@ public ***REMOVED***nal class TestsHelpers {
         cardParams.put("expiry_month", "12");
         cardParams.put("expiry_year", "21");
         cardParams.put("cvv", "123");
+        cardParams.put("card_present", "1");
         return cardParams;
 ***REMOVED***
 ***REMOVED***

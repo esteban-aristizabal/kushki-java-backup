@@ -53,6 +53,4 @@ import static org.hamcrest.CoreMatchers.is;
     static void assertsValidTransaction(Transaction transaction) {
         assertsTransaction(transaction, true, "Transacción aprobada", "000");
 ***REMOVED***
-
-
 ***REMOVED***
