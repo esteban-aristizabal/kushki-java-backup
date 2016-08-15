@@ -1,6 +1,7 @@
 package com.kushkipagos;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 ***REMOVED***
 
 public class Transaction {

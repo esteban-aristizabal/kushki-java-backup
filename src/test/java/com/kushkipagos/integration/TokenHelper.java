@@ -10,7 +10,11 @@ import com.kushkipagos.Transaction;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
-***REMOVED***
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 ***REMOVED***
 ***REMOVED***
 import java.util.HashMap;
