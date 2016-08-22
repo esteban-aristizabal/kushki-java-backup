@@ -12,10 +12,6 @@ import static com.kushkipagos.commons.TestsHelpers.getRandomDouble;
 import static org.hamcrest.CoreMatchers.is;
 ***REMOVED***
 
-/**
- * Created by lmunda on 1/21/16 14:55.
- */
-
 @RunWith(JUnitParamsRunner.class)
 public class ValidationsTest {
 
