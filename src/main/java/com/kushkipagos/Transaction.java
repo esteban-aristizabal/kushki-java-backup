@@ -14,7 +14,8 @@ public class Transaction {
 ***REMOVED***
 
     public Response getResponse() {
-        return response;***REMOVED***
+        return response;
+***REMOVED***
 
     public boolean isSuccessful() {
         return response.getStatus() == 200;
