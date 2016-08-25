@@ -28,9 +28,8 @@ public ***REMOVED***nal class ParametersBuilder {
         return encryptParams(kushki, params);
 ***REMOVED***
 
-    static Map<String, String> getTokenParameters(Kushki kushki, Map<String, String> cardParams, Amount amount) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-        ObjectMapper mapper = new ObjectMapper();
-        String params = mapper.writeValueAsString(cardParams);
+    static Map<String, String> getTokenParameters(Kushki kushki, Card card, Amount amount) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
+        String params = new ObjectMapper().writeValueAsString(card);
         params = buildAndStringifyTokenParameters(kushki, params, amount);
         return encryptParams(kushki, params);
 ***REMOVED***
