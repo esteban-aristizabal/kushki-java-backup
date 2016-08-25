@@ -28,6 +28,13 @@ public ***REMOVED***nal class ParametersBuilder {
         return encryptParams(kushki, params);
 ***REMOVED***
 
+    static Map<String, String> getTokenParameters(Kushki kushki, Map<String, String> cardParams, Amount amount) throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
+        ObjectMapper mapper = new ObjectMapper();
+        String params = mapper.writeValueAsString(cardParams);
+        params = buildAndStringifyTokenParameters(kushki, params, amount);
+        return encryptParams(kushki, params);
+***REMOVED***
+
     private static Map<String, String> encryptParams(Kushki kushki, String params) throws BadPaddingException, IllegalBlockSizeException {
         String encString = kushki.getEncryption().encryptMessageChunk(params);
         Map<String, String> encryptedParameters = new HashMap<>(1);
@@ -68,6 +75,15 @@ public ***REMOVED***nal class ParametersBuilder {
         parameters.put("ticket_number", ticket);
         parameters.put("transaction_amount", stringi***REMOVED***edAmount);
 
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(parameters);
+***REMOVED***
+
+    private static String buildAndStringifyTokenParameters(Kushki kushki, String cardParams, Amount amount) throws JsonProcessingException, KushkiException {
+        Map<String, String> parameters = getCommonParameters(kushki);
+        parameters.put("card", cardParams);
+        parameters.put("amount", amount.toHash().get("Total_amount"));
+        parameters.put("remember_me", "0");
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(parameters);
 ***REMOVED***
