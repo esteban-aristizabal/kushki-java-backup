@@ -35,6 +35,7 @@ public ***REMOVED***nal class TestsHelpers {
 ***REMOVED***
 
     public static Amount getRandomAmount() {
+        // https://xkcd.com/221/
         return new Amount(1d, 1d, 1d, 1d);
 ***REMOVED***
 
