@@ -1,6 +1,7 @@
-package com.kushkipagos;
+package com.kushkipagos.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kushkipagos.Card;
 ***REMOVED***
 
 import static org.hamcrest.CoreMatchers.is;
