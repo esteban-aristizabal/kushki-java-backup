@@ -33,6 +33,15 @@ public class KushkiApiTest {
 ***REMOVED***
 
 ***REMOVED***
+    public void shouldCreateInstanceWithAllDefaultValuesColombia() throws Exception {
+        kushki = new Kushki(merchantId, "es", "COP");
+        assertThat(kushki.getMerchantId(), is(merchantId));
+        assertThat(kushki.getLanguage(), is("es"));
+        assertThat(kushki.getCurrency(), is("COP"));
+        assertThat(kushki.getEnvironment(), is(KushkiEnvironment.PRODUCTION));
+***REMOVED***
+
+***REMOVED***
     public void shouldCreateInstanceWithDefaultLanguageAndCurrency() throws Exception {
         kushki = new Kushki(merchantId, KushkiEnvironment.STAGING);
         assertThat(kushki.getMerchantId(), is(merchantId));

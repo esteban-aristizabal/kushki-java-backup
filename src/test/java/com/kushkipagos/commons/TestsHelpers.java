@@ -2,6 +2,7 @@ package com.kushkipagos.commons;
 
 import com.kushkipagos.Amount;
 import com.kushkipagos.Card;
+import com.kushkipagos.Tax;
 
 import java.util.Random;
 
@@ -34,19 +35,36 @@ public ***REMOVED***nal class TestsHelpers {
         return nextInt(1, 9999) + cents;
 ***REMOVED***
 
+    private static Integer getRandomAmountIntegerColombia() {
+        return 2000 + (int)(Math.random() * 15000000);
+***REMOVED***
+
     public static Amount getRandomAmount() {
         // https://xkcd.com/221/
         return new Amount(1d, 1d, 1d, 1d);
+***REMOVED***
+
+    public static Amount getRandomAmountColombia() {
+        // https://xkcd.com/221/
+        return new Amount(1d, 1d, 1d, new Tax(1d,1d,1d,1d));
 ***REMOVED***
 
     public static Double getRandomDoubleAmount() {
         return getRandomAmount(true);
 ***REMOVED***
 
+    public static Integer getRandomIntegerAmount() {
+        return getRandomAmountIntegerColombia();
+***REMOVED***
+
     public static Integer getRandomMonths() {
         int[] monthsDeferred = {3, 6, 9, 12***REMOVED***;
         int rnd = new Random().nextInt(monthsDeferred.length);
         return monthsDeferred[rnd];
+***REMOVED***
+
+    public static Integer getRandomMonthsColombia() {
+        return 2 + (int)(Math.random() * 35);
 ***REMOVED***
 
     public static Card getValidCard() {

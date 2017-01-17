@@ -39,6 +39,9 @@ public class Transaction {
     public Double getApprovedAmount() {
         return Double.parseDouble(getResponseAttribute("approved_amount"));***REMOVED***
 
+    public Integer getApprovedAmountColombia() {
+        return Integer.parseInt(getResponseAttribute("approved_amount"));***REMOVED***
+
     public String getResponseCode() {
         return getResponseAttribute("response_code");
 ***REMOVED***
