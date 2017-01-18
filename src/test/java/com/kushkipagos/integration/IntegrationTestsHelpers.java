@@ -22,6 +22,9 @@ import static org.hamcrest.CoreMatchers.is;
     public static ***REMOVED***nal String MERCHANT_ID = "10000001641310597258111220";
     private static ***REMOVED***nal String SECRET_MERCHANT_ID = "10000001641344874123111220";
 
+    public static ***REMOVED***nal String MERCHANT_ID_COLOMBIA = "10000001958318993042555001";
+    private static ***REMOVED***nal String SECRET_MERCHANT_ID_COLOMBIA = "10000001958363505343555001";
+
     private static ***REMOVED***nal Logger LOG = Logger.getLogger(IntegrationTestsHelpers.class.getName());
 
     private IntegrationTestsHelpers() {
@@ -33,6 +36,14 @@ import static org.hamcrest.CoreMatchers.is;
             merchantId = SECRET_MERCHANT_ID;
 ***REMOVED***
         return new Kushki(merchantId, "es", "USD", KushkiEnvironment.TESTING);
+***REMOVED***
+
+    static Kushki setupKushkiColombia(Boolean isSecret) throws InvalidKeySpecException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+        String merchantId = MERCHANT_ID_COLOMBIA;
+        if (isSecret) {
+            merchantId = SECRET_MERCHANT_ID_COLOMBIA;
+***REMOVED***
+        return new Kushki(merchantId, "es", "COP", KushkiEnvironment.TESTING);
 ***REMOVED***
 
     static void assertsTransaction(Transaction transaction, Boolean isSuccessful,

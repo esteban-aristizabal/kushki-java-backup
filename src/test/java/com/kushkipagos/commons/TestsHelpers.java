@@ -68,6 +68,10 @@ public ***REMOVED***nal class TestsHelpers {
 ***REMOVED***
 
     public static Card getValidCard() {
-        return new Card(randomAlphabetic(20), "4017779991118888", "123", "12", "21");
+        return new Card(randomAlphabetic(20), "4242424242424242", "123", "12", "21");
+***REMOVED***
+
+    public static Card getValidCardColombia() {
+        return new Card(randomAlphabetic(20), "4005580000050003", "130", "12", "18");
 ***REMOVED***
 ***REMOVED***
