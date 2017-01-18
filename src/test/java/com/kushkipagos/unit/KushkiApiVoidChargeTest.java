@@ -89,7 +89,7 @@ public class KushkiApiVoidChargeTest {
     public void shouldSendRightParametersToVoidChargeColombia() throws NoSuchFieldException, IllegalAccessException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String ticket = randomAlphabetic(10);
         Amount amount = TestsHelpers.getRandomAmountColombia();
-        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHashColombia());
+        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
 
         AurusEncryption encryption = mock(AurusEncryption.class);
         String encrypted = randomAlphabetic(10);

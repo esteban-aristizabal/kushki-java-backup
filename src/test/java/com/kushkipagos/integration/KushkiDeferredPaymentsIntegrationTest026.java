@@ -53,7 +53,7 @@ public class KushkiDeferredPaymentsIntegrationTest026 {
 ***REMOVED***
     public void shouldReturnSuccessfulDeferredChargeTransactionTC026Colombia() throws BadPaddingException, IllegalBlockSizeException, JsonProcessingException, KushkiException, InterruptedException {
         Amount amount = getRandomAmountColombia();
-        Transaction tokenTransaction = getValidTokenTransactionColombia(kushkiColombia, amount.getTotalAmountColombia());
+        Transaction tokenTransaction = getValidTokenTransactionColombia(kushkiColombia, amount.getTotalAmount());
         Integer months = getRandomMonthsColombia();
         String token = tokenTransaction.getToken();
 
