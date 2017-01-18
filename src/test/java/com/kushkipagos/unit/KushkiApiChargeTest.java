@@ -45,72 +45,23 @@ public class KushkiApiChargeTest {
     public void shouldChargeACardWithToken() throws NoSuchFieldException, IllegalAccessException, JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String token = randomAlphabetic(10);
         Amount amount = TestsHelpers.getRandomAmount();
-
         Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
         kushki.charge(token, amount);
         verify(invocationBuilder).post(any(Entity.class));
 ***REMOVED***
-
-***REMOVED***
-    public void shouldChargeACardWithTokenColombia() throws NoSuchFieldException, IllegalAccessException, JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-        String token = randomAlphabetic(10);
-        Amount amount = TestsHelpers.getRandomAmountColombia();
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
-        kushki.charge(token, amount);
-        verify(invocationBuilder).post(any(Entity.class));
-***REMOVED***
-
 
 ***REMOVED***
     public void shouldSendRightParametersToChargeCard() throws NoSuchFieldException, IllegalAccessException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String token = randomAlphabetic(10);
         Amount amount = TestsHelpers.getRandomAmount();
-        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
-
-        AurusEncryption encryption = mock(AurusEncryption.class);
-        String encrypted = randomAlphabetic(10);
-        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
-        kushki.charge(token, amount);
-
-        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
-        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(invocationBuilder).post(entityArgumentCaptor.capture());
-        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
-        Map<String, String> parameters = entity.getEntity();
-        assertThat(parameters.get("request"), is(encrypted));
-
-        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
-        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
-        assertThat(parameters.get("transaction_token"), is(token));
-        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
+        assertTransactionParameters(token, amount);
 ***REMOVED***
 
 ***REMOVED***
     public void shouldSendRightParametersToChargeCardColombia() throws NoSuchFieldException, IllegalAccessException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
         String token = randomAlphabetic(10);
-        Amount amount = TestsHelpers.getRandomAmountColombia();
-        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
-
-        AurusEncryption encryption = mock(AurusEncryption.class);
-        String encrypted = randomAlphabetic(10);
-        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
-        kushki.charge(token, amount);
-
-        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
-        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(invocationBuilder).post(entityArgumentCaptor.capture());
-        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
-        Map<String, String> parameters = entity.getEntity();
-        assertThat(parameters.get("request"), is(encrypted));
-
-        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
-        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
-        assertThat(parameters.get("transaction_token"), is(token));
-        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
+        Amount colombianAmount = TestsHelpers.getRandomAmountColombia();
+        assertTransactionParameters(token, colombianAmount);
 ***REMOVED***
 
 ***REMOVED***
@@ -126,16 +77,26 @@ public class KushkiApiChargeTest {
         assertThat(transaction.getResponse(), is(response));
 ***REMOVED***
 
-***REMOVED***
-    public void shouldReturnTransactionObjectAfterChargingCardColombia() throws NoSuchFieldException, IllegalAccessException, JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-        String token = randomAlphabetic(10);
-        Amount amount = TestsHelpers.getRandomAmountColombia();
+    private void assertTransactionParameters(String token, Amount amount) throws KushkiException, NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException, IOException {
+        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
 
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockClient(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
+        AurusEncryption encryption = mock(AurusEncryption.class);
+        String encrypted = randomAlphabetic(10);
+        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
+        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.CHARGE_URL);
+        kushki.charge(token, amount);
 
-        Response response = mock(Response.class);
-        when(invocationBuilder.post(any(Entity.class))).thenReturn(response);
-        Transaction transaction = kushki.charge(token, amount);
-        assertThat(transaction.getResponse(), is(response));
+        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
+        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(invocationBuilder).post(entityArgumentCaptor.capture());
+        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
+        Map<String, String> parameters = entity.getEntity();
+        assertThat(parameters.get("request"), is(encrypted));
+
+        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
+        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
+        assertThat(parameters.get("transaction_token"), is(token));
+        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
 ***REMOVED***
 ***REMOVED***

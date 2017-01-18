@@ -40,7 +40,6 @@ public ***REMOVED***nal class TestsHelpers {
 ***REMOVED***
 
     public static Amount getRandomAmount() {
-        // https://xkcd.com/221/
         return new Amount(1d, 1d, 1d, 1d);
 ***REMOVED***
 
@@ -50,10 +49,6 @@ public ***REMOVED***nal class TestsHelpers {
 
     public static Double getRandomDoubleAmount() {
         return getRandomAmount(true);
-***REMOVED***
-
-    public static Integer getRandomIntegerAmount() {
-        return getRandomAmountIntegerColombia();
 ***REMOVED***
 
     public static Integer getRandomMonths() {

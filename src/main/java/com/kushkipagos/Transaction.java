@@ -36,11 +36,7 @@ public class Transaction {
         return getResponseAttribute("transaction_token");
 ***REMOVED***
 
-    public Double getApprovedAmount() {
-        return Double.parseDouble(getResponseAttribute("approved_amount"));***REMOVED***
-
-    public Integer getApprovedAmountColombia() {
-        return Integer.parseInt(getResponseAttribute("approved_amount"));***REMOVED***
+    public Double getApprovedAmount() { return Double.parseDouble(getResponseAttribute("approved_amount")); ***REMOVED***
 
     public String getResponseCode() {
         return getResponseAttribute("response_code");
