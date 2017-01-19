@@ -44,64 +44,15 @@ public class KushkiApiVoidChargeTest {
 ***REMOVED***
 
 ***REMOVED***
-    public void shouldVoidChargeWithTokenAndTicketColombia() throws IllegalBlockSizeException, IllegalAccessException, BadPaddingException, NoSuchFieldException, KushkiException, JsonProcessingException {
-        String ticket = randomAlphabetic(10);
-        Amount amount = TestsHelpers.getRandomAmountColombia();
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(), Kushki.VOID_URL);
-        kushki.voidCharge(ticket, amount);
-        verify(invocationBuilder).post(any(Entity.class));
-***REMOVED***
-
-***REMOVED***
     public void shouldSendRightParametersToVoidCharge() throws NoSuchFieldException, IllegalAccessException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-        String ticket = randomAlphabetic(10);
         Amount amount = TestsHelpers.getRandomAmount();
-        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
-
-        AurusEncryption encryption = mock(AurusEncryption.class);
-        String encrypted = randomAlphabetic(10);
-        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki,KushkiEnvironment.TESTING.getUrl(),  Kushki.VOID_URL);
-        kushki.voidCharge(ticket, amount);
-
-        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
-        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(invocationBuilder).post(entityArgumentCaptor.capture());
-        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
-        Map<String, String> parameters = entity.getEntity();
-        assertThat(parameters.get("request"), is(encrypted));
-
-        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
-        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
-        assertThat(parameters.get("ticket_number"), is(ticket));
-        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
+        assertVoidParameters(amount);
 ***REMOVED***
 
 ***REMOVED***
     public void shouldSendRightParametersToVoidChargeColombia() throws NoSuchFieldException, IllegalAccessException, IOException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-        String ticket = randomAlphabetic(10);
         Amount amount = TestsHelpers.getRandomAmountColombia();
-        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
-
-        AurusEncryption encryption = mock(AurusEncryption.class);
-        String encrypted = randomAlphabetic(10);
-        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
-        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki,KushkiEnvironment.TESTING.getUrl(),  Kushki.VOID_URL);
-        kushki.voidCharge(ticket, amount);
-
-        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
-        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(invocationBuilder).post(entityArgumentCaptor.capture());
-        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
-        Map<String, String> parameters = entity.getEntity();
-        assertThat(parameters.get("request"), is(encrypted));
-
-        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
-        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
-        assertThat(parameters.get("ticket_number"), is(ticket));
-        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
+        assertVoidParameters(amount);
 ***REMOVED***
 
 ***REMOVED***
@@ -115,6 +66,30 @@ public class KushkiApiVoidChargeTest {
         when(invocationBuilder.post(any(Entity.class))).thenReturn(response);
         Transaction transaction = kushki.voidCharge(ticket, amount);
         assertThat(transaction.getResponse(), is(response));
+***REMOVED***
+
+    private void assertVoidParameters(Amount amount) throws KushkiException, NoSuchFieldException, IllegalAccessException, BadPaddingException, IllegalBlockSizeException, IOException {
+        String ticket = randomAlphabetic(10);
+        String stringi***REMOVED***edAmount = new ObjectMapper().writeValueAsString(amount.toHash());
+
+        AurusEncryption encryption = mock(AurusEncryption.class);
+        String encrypted = randomAlphabetic(10);
+        UnitTestsHelpers.mockEncryption(kushki, encryption, encrypted);
+        Invocation.Builder invocationBuilder = UnitTestsHelpers.mockInvocationBuilder(kushki, KushkiEnvironment.TESTING.getUrl(),  Kushki.VOID_URL);
+        kushki.voidCharge(ticket, amount);
+
+        ArgumentCaptor<Entity> entityArgumentCaptor = ArgumentCaptor.forClass(Entity.class);
+        ArgumentCaptor<String> unencryptedParamsArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(invocationBuilder).post(entityArgumentCaptor.capture());
+        Entity<Map<String, String>> entity = entityArgumentCaptor.getValue();
+        Map<String, String> parameters = entity.getEntity();
+        assertThat(parameters.get("request"), is(encrypted));
+
+        verify(encryption).encryptMessageChunk(unencryptedParamsArgumentCaptor.capture());
+        parameters = new ObjectMapper().readValue(unencryptedParamsArgumentCaptor.getValue(), Map.class);
+        assertThat(parameters.get("ticket_number"), is(ticket));
+        assertThat(parameters.get("transaction_amount"), is(stringi***REMOVED***edAmount));
 ***REMOVED***
 
 ***REMOVED***
