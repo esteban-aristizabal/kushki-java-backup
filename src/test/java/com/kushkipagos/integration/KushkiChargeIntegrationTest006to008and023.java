@@ -49,14 +49,17 @@ public class KushkiChargeIntegrationTest006to008and023 {
         chargeTransactionColombia = secretKushkiColombia.charge(tokenColombia, amountColombia);
 ***REMOVED***
 
-    // TODO: Uncomment this test when Aurus ***REMOVED***xes token logic
-//***REMOVED***
-//    public void shouldReturnSuccessfulChargeTransactionTC006() throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
-//        assertsValidTransaction(tokenTransaction);
-//        assertsValidTransaction(chargeTransaction);
-//        assertsValidTransaction(tokenTransactionColombia);
-//        assertsValidTransaction(chargeTransactionColombia);
-//***REMOVED***
+***REMOVED***
+    public void shouldReturnSuccessfulChargeTransactionTC006() throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
+        assertsValidTransaction(tokenTransaction);
+        assertsValidTransaction(chargeTransaction);
+***REMOVED***
+
+***REMOVED***
+    public void shouldReturnSuccessfulChargeTransactionTC006Colombia() throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException {
+        assertsValidTransaction(tokenTransactionColombia);
+        assertsValidTransaction(chargeTransactionColombia);
+***REMOVED***
 
 ***REMOVED***
     public void shouldReturnNonSuccessfulChargeTransactionUsedTokenTC007() throws JsonProcessingException, BadPaddingException, IllegalBlockSizeException, KushkiException, InterruptedException {
