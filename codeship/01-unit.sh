@@ -1,0 +1,3 @@
+***REMOVED***
+ls
+./gradlew test
