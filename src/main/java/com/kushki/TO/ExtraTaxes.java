@@ -1,6 +1,10 @@
-package com.kushkipagos;
+package com.kushki.TO;
 
-import java.util.*;
+import com.kushki.KushkiException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ExtraTaxes {
     private Tax propina = new Tax("3", "PROPINA", 0d, "La propina");
@@ -19,6 +23,7 @@ public class ExtraTaxes {
         return propina.getAmount() + tasaAeroportuaria.getAmount() + agenciaDeViaje.getAmount() + iac.getAmount();
 ***REMOVED***
 
+
     public List<Map<String, String>> toHashArray() throws KushkiException {
         List<Map<String, String>> extraTaxes = new ArrayList<>();
         if (propina.getAmount() > 0) extraTaxes.add(propina.toHash());
@@ -26,5 +31,21 @@ public class ExtraTaxes {
         if (agenciaDeViaje.getAmount() > 0) extraTaxes.add(agenciaDeViaje.toHash());
         if (iac.getAmount() > 0) extraTaxes.add(iac.toHash());
         return extraTaxes;
+***REMOVED***
+
+    public Tax getPropina() {
+        return propina;
+***REMOVED***
+
+    public Tax getTasaAeroportuaria() {
+        return tasaAeroportuaria;
+***REMOVED***
+
+    public Tax getAgenciaDeViaje() {
+        return agenciaDeViaje;
+***REMOVED***
+
+    public Tax getIac() {
+        return iac;
 ***REMOVED***
 ***REMOVED***
