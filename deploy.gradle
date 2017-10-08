@@ -71,36 +71,3 @@ install {
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-    publish = true
-    con***REMOVED***gurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = pkgName
-        userOrg = user
-        licenses = [pkgLicense]
-        publicDownloadNumbers = false
-        vcsUrl = githubUrl + '.git'
-        desc = pkgDesc
-        websiteUrl = githubUrl
-        issueTrackerUrl = githubUrl + '/issues'
-        version {
-            name = versionTag
-            desc = pkgDesc
-            vcsTag = 'v' + versionTag
-            released = new Date()
-            gpg {
-                sign = true
-    ***REMOVED***
-            mavenCentralSync {
-                sync = true
-                user = mavenCentralUser
-                password = mavenCentralToken
-                close = '1'
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***

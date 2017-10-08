@@ -149,6 +149,7 @@ public class KushkiChargeTest {
 ***REMOVED***
             Transaction charge = kushki.charge(token, amount);
             assertThat("Good Charge", charge.isSuccessful());
+            Thread.sleep(5000);
             Transaction voidCharge = kushki.voidCharge(charge.getTicketNumber(),amount);
             assertThat("Good Void", voidCharge.isSuccessful());
 ***REMOVED***
@@ -165,6 +166,7 @@ public class KushkiChargeTest {
 ***REMOVED***
             Transaction charge = kushki.charge(token,amount);
             assertThat("Good Charge", charge.isSuccessful());
+            Thread.sleep(5000);
             Transaction voidCharge = kushki.refundCharge(charge.getTicketNumber());
             assertThat("Good Void", voidCharge.isSuccessful());
 ***REMOVED***
