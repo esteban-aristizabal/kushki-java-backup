@@ -1,2 +1,2 @@
 ***REMOVED***
-gradle clean bintrayUpload
+gradle unitTest
