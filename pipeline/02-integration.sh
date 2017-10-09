@@ -4,7 +4,7 @@
 curl $BACKOFFICE_URL > /dev/null
 
 ***REMOVED***
-
+gradle bintrayUpload
 # ARTIFACTS:
 # ARTIFACT build/libs
 #
