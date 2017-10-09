@@ -2,9 +2,8 @@
 
 # Waking up herokuapp
 curl $BACKOFFICE_URL > /dev/null
-printenv
 ***REMOVED***
-gradle clean bintrayUpload
+#gradle clean bintrayUpload
 # ARTIFACTS:
 # ARTIFACT build/libs
 #
