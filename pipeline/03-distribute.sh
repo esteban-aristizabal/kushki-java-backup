@@ -1,2 +1,2 @@
 ***REMOVED***
-/project/pipeline/gradlew clean bintrayUpload
+gradle clean bintrayUpload
