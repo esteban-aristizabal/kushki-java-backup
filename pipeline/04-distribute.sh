@@ -1,14 +1,2 @@
 ***REMOVED***
-
-#CI_BRANCH
-
-#if [ "$CI_BRANCH" == "DEVELOPE" ]; then
-gradle  clean bintrayUpload
-#***REMOVED***
-
-# ENVIRONMENT VARIABLES:
-# STAGE
-#  BINTRAY_USER
-#  BINTRAY_API_KEY
-#  MAVEN_CENTRAL_USER
-#  MAVEN_CENTRAL_TOKEN
+gradle clean bintrayUpload
