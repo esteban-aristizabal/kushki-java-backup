@@ -4,7 +4,7 @@
 curl $BACKOFFICE_URL > /dev/null
 
 ***REMOVED***
-gradle bintrayUpload
+gradle -Puser="{$BINTRAY_USER***REMOVED***" -Pkey="{$BINTRAY_API_KEY***REMOVED***" clean bintrayUpload
 # ARTIFACTS:
 # ARTIFACT build/libs
 #
