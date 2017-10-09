@@ -4,13 +4,10 @@ package com.kushkipagos.unit;
 import com.kushki.Enum.KushkiEnvironment;
 import com.kushki.Enum.KushkiPeriodicitySuscriptionEnum;
 ***REMOVED***
-import com.kushki.KushkiException;
 import com.kushki.ParametersBuilder;
 import com.kushki.TO.Amount;
 import com.kushki.TO.ContactDetail;
-import com.kushki.TO.ExtraTaxes;
 import com.kushki.TO.SuscriptionInfo;
-
 ***REMOVED***
 import org.junit.Before;
 ***REMOVED***
@@ -18,7 +15,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 ***REMOVED***
@@ -69,7 +65,7 @@ public class KushkiSuscriptionParameterBuilderTest {
                     "{\"cvv\":\"123\"" +
                             ",\"amount\":{\"subtotalIva0\":0,\"iva\":12,\"subtotalIva\":100,\"ice\":0,\"currency\":\""+kushki.getCurrency()+"\"***REMOVED***" +
                             ",\"metadata\":{\"glossary\":{\"title\":\"example glossary\",\"GlossDiv\":{\"GlossList\":{\"GlossEntry\":{\"GlossTerm\":\"Standard Generalized Markup Language\",\"GlossSee\":\"markup\",\"SortAs\":\"SGML\",\"GlossDef\":{\"para\":\"A meta-markup language, used to create markup languages such as DocBook.\",\"GlossSeeAlso\":[\"GML\",\"XML\"]***REMOVED***,\"ID\":\"SGML\",\"Acronym\":\"SGML\",\"Abbrev\":\"ISO 8879:1986\"***REMOVED******REMOVED***,\"title\":\"S\"***REMOVED******REMOVED******REMOVED***" +
-                            ",\"language\":\""+kushki.getLanguage()+"\"***REMOVED***\n"
+                            ",\"language\":\""+kushki.getLanguage()+"\"***REMOVED***"
                     , response, true);
 ***REMOVED***
             assertThat("this line must be unreachable", false);

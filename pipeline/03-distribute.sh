@@ -1,2 +1,2 @@
 ***REMOVED***
-gradle unitTest
+/project/pipeline/gradlew clean bintrayUpload
