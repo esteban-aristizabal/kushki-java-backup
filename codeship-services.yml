@@ -1,0 +1,5 @@
+kushkipagos:
+  build:
+    image: kushkipagos/java
+    docker***REMOVED***le: Docker***REMOVED***le
+  encrypted_env_***REMOVED***le: env.encrypted
