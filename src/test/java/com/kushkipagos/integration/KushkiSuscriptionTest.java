@@ -1,8 +1,8 @@
 ***REMOVED***
 
+***REMOVED***
 import com.kushki.enums.KushkiAdjustSubscription;
 import com.kushki.enums.KushkiPeriodicitySubscriptionType;
-***REMOVED***
 ***REMOVED***
 import com.kushki.to.ContactDetail;
 import com.kushki.to.SuscriptionInfo;

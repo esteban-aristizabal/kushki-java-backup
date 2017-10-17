@@ -139,8 +139,6 @@ artifacts {
     archives javadocJar, sourcesJar
 ***REMOVED***
 
-
-
 // Create the pom con***REMOVED***guration:
 def pomCon***REMOVED***g = {
     licenses {
