@@ -1,3 +1,3 @@
 ***REMOVED***
 
-gradle clean bintrayUpload
+***REMOVED***
