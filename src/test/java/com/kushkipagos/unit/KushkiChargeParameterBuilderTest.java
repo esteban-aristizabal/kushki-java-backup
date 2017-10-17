@@ -2,9 +2,9 @@ package com.kushkipagos.unit;
 
 
 import com.kushki.*;
-import com.kushki.Enum.KushkiEnvironment;
-import com.kushki.TO.Amount;
-import com.kushki.TO.ExtraTaxes;
+***REMOVED***
+***REMOVED***
+import com.kushki.to.ExtraTaxes;
 import org.junit.Before;
 ***REMOVED***
 
