@@ -7,7 +7,7 @@ import com.kushki.enums.KushkiPeriodicitySubscriptionType;
 import com.kushki.ParametersBuilder;
 ***REMOVED***
 import com.kushki.to.ContactDetail;
-import com.kushki.to.SuscriptionInfo;
+import com.kushki.to.SubscriptionInfo;
 ***REMOVED***
 import org.junit.Before;
 ***REMOVED***
@@ -42,7 +42,7 @@ public class KushkiSuscriptionParameterBuilderTest {
             Date date = formatter.parse("30/07/1987");
             JSONObject response = ParametersBuilder.getSubscriptionParams(
                     this.kushki, token, new Amount(100d, 12d, 0d, 0d), longTestJSON,
-                    new SuscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
+                    new SubscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
                             date, new ContactDetail("Heidi", "Nino", "user@user.com")));
             JSONAssert.assertEquals("Bad JSON answer. The answer is " + response.toString(),
                     "{\"amount\":{\"subtotalIva0\":0,\"iva\":12,\"subtotalIva\":100,\"ice\":0,\"currency\":\"" + kushki.getCurrency() + "\"***REMOVED***," +
@@ -91,7 +91,7 @@ public class KushkiSuscriptionParameterBuilderTest {
             Date date = formatter.parse("30/07/1987");
             JSONObject response = ParametersBuilder.getSubscriptionParams(
                     this.kushki, token, new Amount(100d, 12d, 0d, 0d), null,
-                    new SuscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
+                    new SubscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
                             date, new ContactDetail("Heidi", "Nino", "user@user.com")));
             JSONAssert.assertEquals("Bad JSON answer. The answer is " + response.toString(),
                     "{\"amount\":{\"subtotalIva0\":0,\"iva\":12,\"subtotalIva\":100,\"ice\":0,\"currency\":\"" + kushki.getCurrency() + "\"***REMOVED***," +
@@ -110,7 +110,7 @@ public class KushkiSuscriptionParameterBuilderTest {
 ***REMOVED***
             JSONObject response = ParametersBuilder.getSubscriptionParams(
                     this.kushki, token, new Amount(100d, 12d, 0d, 0d), null,
-                    new SuscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
+                    new SubscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
                             null, new ContactDetail("Heidi", "Nino", "user@user.com")));
             assertThat("this line must be unreachable", false);
 ***REMOVED***
@@ -141,7 +141,7 @@ public class KushkiSuscriptionParameterBuilderTest {
             Date date = formatter.parse("30/07/1987");
             JSONObject response = ParametersBuilder.getSubscriptionParams(
                     this.kushki, token, null, null,
-                    new SuscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
+                    new SubscriptionInfo("SuperPLAN", KushkiPeriodicitySubscriptionType.MONTLY,
                             date, new ContactDetail("Heidi", "Nino", "user@user.com")));
             assertThat("this line must be unreachable", false);
 ***REMOVED***

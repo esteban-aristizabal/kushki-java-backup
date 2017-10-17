@@ -5,7 +5,7 @@ import com.kushki.enums.KushkiAdjustSubscription;
 ***REMOVED***
 import com.kushki.enums.KushkiTransaccionType;
 ***REMOVED***
-import com.kushki.to.SuscriptionInfo;
+import com.kushki.to.SubscriptionInfo;
 import com.kushki.to.Transaction;
 ***REMOVED***
 
@@ -180,14 +180,14 @@ public class Kushki {
         return this.gateway.delete(KushkiTransaccionType.REFUND.toString(), ticket, this);
 ***REMOVED***
 
-    public Transaction subscription(String token, Amount amount, JSONObject metadata, SuscriptionInfo suscriptionInfo) throws KushkiException {
+    public Transaction subscription(String token, Amount amount, JSONObject metadata, SubscriptionInfo subscriptionInfo) throws KushkiException {
         return this.gateway.post(KushkiTransaccionType.SUSCRIPTION.toString()
-                , ParametersBuilder.getSubscriptionParams(this, token, amount, metadata, suscriptionInfo), this);
+                , ParametersBuilder.getSubscriptionParams(this, token, amount, metadata, subscriptionInfo), this);
 ***REMOVED***
 
-    public Transaction updateSubscription(Amount amount, JSONObject metadata, SuscriptionInfo suscriptionInfo, String subscriptionId) throws KushkiException {
+    public Transaction updateSubscription(Amount amount, JSONObject metadata, SubscriptionInfo subscriptionInfo, String subscriptionId) throws KushkiException {
         return this.gateway.patch(KushkiTransaccionType.SUSCRIPTION.toString() + "/" + subscriptionId
-                , ParametersBuilder.getUpdateSubscriptionParams(this, amount, metadata, suscriptionInfo), this);
+                , ParametersBuilder.getUpdateSubscriptionParams(this, amount, metadata, subscriptionInfo), this);
 ***REMOVED***
 
     public Transaction updateSubscriptionCard(String newToken, String subscriptionId) throws KushkiException {
