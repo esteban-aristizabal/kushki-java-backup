@@ -129,7 +129,8 @@ public class KushkiSuscriptionTest {
 ***REMOVED***
 
 
-    //TODO check the reason of fail of this when run with others test.
+
+***REMOVED***
     public void deleteSubscription() {
 ***REMOVED***
             Kushki kushki = getKushkiTESTECCommerce();
