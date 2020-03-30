@@ -1,0 +1,170 @@
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import groovy.json.JsonSlurper;
+
+
+node {
+    projectName =  determineRepoName()
+    projectGit = "Kushki/${projectName***REMOVED***"
+    ENVIRONMENT = "uat"
+    PULL_REQUEST = env.CHANGE_ID
+     CHANGE_BRANCH = "master"
+
+        stage('Pull') {
+         git branch: "${CHANGE_BRANCH***REMOVED***", url: "git@github.com:${projectGit***REMOVED***.git"
+         sh "git rev-parse HEAD > .git/commit-id"
+         commit_id = readFile('.git/commit-id')
+         commit_id = commit_id.split("\n")[0]
+         sh "git show --format='%ae' $commit_id  > .git/commit-author"
+         GIT_AUTHOR_EMAIL  = readFile('.git/commit-author')
+         GIT_AUTHOR_EMAIL = GIT_AUTHOR_EMAIL.split("\n")[0]
+***REMOVED***
+               stage('Con***REMOVED***g ***REMOVED***les') {
+                          parallel(
+                          uat:{createEnv("uat")***REMOVED***,
+                          primary:{createEnv("primary")***REMOVED***
+                          )***REMOVED***
+
+
+        stage('Test and build') {
+          parallel(
+          createUATArtifact:{
+
+          awsCodeBuild artifactLocationOverride: 'artifact-build-des', artifactNameOverride: "${commit_id***REMOVED***.zip", artifactNamespaceOverride: "NONE", artifactPackagingOverride: 'ZIP', artifactPathOverride: "uat/${projectName***REMOVED***/uat-master/", artifactTypeOverride: 'S3',   buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins',  envVariables: "[ { USRV_STAGE, uat ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED*** ]", gitCloneDepthOverride: '', projectName: 'front_build_node10', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
+
+  ***REMOVED***,
+          createPRODArtifact:{
+
+          awsCodeBuild artifactLocationOverride: 'artifact-build', artifactNameOverride: "${commit_id***REMOVED***.zip", artifactNamespaceOverride: "NONE", artifactPackagingOverride: 'ZIP', artifactPathOverride: "primary/${projectName***REMOVED***/master/", artifactTypeOverride: 'S3',  buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialProd', credentialsType: 'jenkins',  envVariables: "[ { USRV_STAGE, primary ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED*** ]", gitCloneDepthOverride: '', projectName: 'front_build_node10', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
+  ***REMOVED***
+          ,
+          testingCode:{
+          awsCodeBuild artifactLocationOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[ { USRV_STAGE, $ENVIRONMENT ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'front_testing', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
+               ***REMOVED***
+          )
+***REMOVED***
+
+        stage ("deploy $ENVIRONMENT") {
+        sh "aws ssm get-parameters --names /${ENVIRONMENT***REMOVED***/${projectName***REMOVED***/DISTRIBUTION_ARRAY --region us-east-1 --query \"Parameters[0].Value\" > .tmp"
+        DISTRIBUTION_ARRAY  = readFile('.tmp')
+        DISTRIBUTION_ARRAY = DISTRIBUTION_ARRAY.split("\n")[0].replace('"', "")
+
+        awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/uat-master/${commit_id***REMOVED***.zip ***REMOVED***, {FINAL_BUCKET, s3://${projectName***REMOVED***-${ENVIRONMENT***REMOVED*** ***REMOVED***,{DISTRIBUTION_ARRAY, ${DISTRIBUTION_ARRAY***REMOVED*** ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'front_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
+
+***REMOVED***
+        notifyRollbar(ENVIRONMENT,projectName, commit_id, GIT_AUTHOR_EMAIL)
+
+         stage('Integration') {
+                parallel(
+                runscopeTest:{
+                functionalTests(ENVIRONMENT)
+         ***REMOVED***
+                 )
+        ***REMOVED***
+
+
+        ENVIRONMENT = 'primary'
+
+        stage ("deploy $ENVIRONMENT") {
+        sh "aws ssm get-parameters --names /${ENVIRONMENT***REMOVED***/${projectName***REMOVED***/DISTRIBUTION_ARRAY --region us-east-1 --query \"Parameters[0].Value\" --pro***REMOVED***le production > .tmp"
+        DISTRIBUTION_ARRAY  = readFile('.tmp')
+        DISTRIBUTION_ARRAY = DISTRIBUTION_ARRAY.split("\n")[0].replace('"', "")
+        awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialProd', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build/$ENVIRONMENT/${projectName***REMOVED***/master/${commit_id***REMOVED***.zip ***REMOVED***, {FINAL_BUCKET, s3://${projectName***REMOVED***-${ENVIRONMENT***REMOVED*** ***REMOVED***,{DISTRIBUTION_ARRAY, ${DISTRIBUTION_ARRAY***REMOVED*** ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'front_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
+***REMOVED***
+        notifyRollbar(ENVIRONMENT,projectName, commit_id, GIT_AUTHOR_EMAIL)
+
+
+***REMOVED***
+
+
+
+String determineRepoName() {
+    return "${env.JOB_NAME***REMOVED***".tokenize('/')[1]
+***REMOVED***
+
+def functionalTests(String environment) {
+         sh "aws ssm get-parameters --names /${environment***REMOVED***/${projectName***REMOVED***/RUNSCOPE_SUITE_TEST --region us-east-1 --query \"Parameters[0].Value\" > .tmp${environment***REMOVED***"
+         RUNSCOPE_SUITE_TEST  = readFile(".tmp${environment***REMOVED***")
+         RUNSCOPE_SUITE_TEST = RUNSCOPE_SUITE_TEST.split("\n")[0]
+         sh "aws ssm get-parameters --names /${environment***REMOVED***/${projectName***REMOVED***/RUNSCOPE_ENV --region us-east-1 --query \"Parameters[0].Value\" > .tmp${environment***REMOVED***"
+         RUNSCOPE_ENV  = readFile(".tmp${environment***REMOVED***")
+         RUNSCOPE_ENV = RUNSCOPE_ENV.split("\n")[0]
+
+         timeout(time: 300, unit: 'SECONDS') {
+            hook = registerWebhook()
+            sh """
+                curl --fail -X GET https://api.runscope.com/radar/${RUNSCOPE_SUITE_TEST***REMOVED***/trigger \
+                -d runscope_environment=${RUNSCOPE_ENV***REMOVED*** \
+                -d runscope_noti***REMOVED***cation_url=${hook.getURL()***REMOVED***
+            """
+        def dataAsstring = waitForWebhook hook
+        def props = readJSON text: '{' + dataAsstring.substring(dataAsstring.indexOf("team_id")-1 ,dataAsstring.indexOf("test_run_id")-3) + '***REMOVED***'
+        echo "Review : ${props.test_run_url***REMOVED***"
+        assert (props.result == "pass") : "Runscope fail! ಥ_ಥ. better luck next time"
+        echo "Hi :) : everything is gonna be alright"
+***REMOVED***
+***REMOVED***
+
+def createEnv(String environment) {
+
+    def ***REMOVED***leName =  ".env-${environment***REMOVED***.json"
+    stage("create environment: ${environment***REMOVED***") {
+        if (environment=='uat') {
+        sh "aws ssm get-parameters-by-path  --path /${environment***REMOVED***/${projectName***REMOVED***/ --region us-east-1  > .preMustache${environment***REMOVED***"
+***REMOVED*** else {
+        sh "aws ssm get-parameters-by-path  --path /${environment***REMOVED***/${projectName***REMOVED***/ --region us-east-1  --pro***REMOVED***le production > .preMustache${environment***REMOVED***"
+***REMOVED***
+
+        def name  = ""
+        def result = readJSON ***REMOVED***le: ".preMustache${environment***REMOVED***"
+                sh "rm -f ${***REMOVED***leName***REMOVED*** || true"
+                sh "touch ${***REMOVED***leName***REMOVED***"
+                sh "echo '{\"a\":\"b\" '  >> ${***REMOVED***leName***REMOVED***"
+            result.Parameters.each{
+            name = "${it.Name***REMOVED***".tokenize('/')[-1]
+                 sh " echo ', \"${name***REMOVED***\":\"${it.Value***REMOVED***\"' >> ${***REMOVED***leName***REMOVED***"
+    ***REMOVED***
+            sh "echo \"***REMOVED***\" >> ${***REMOVED***leName***REMOVED***"
+***REMOVED***
+            sh "cat ${***REMOVED***leName***REMOVED***"
+***REMOVED***
+
+def notifyBuild(String buildStatus = 'STARTED') {
+    // build status of null means successful
+    buildStatus = buildStatus ?: 'SUCCESSFUL'
+
+    // Default values
+    def colorName = 'RED'
+    def colorCode = '#FF0000'
+    def subject = "${buildStatus***REMOVED***: Job '${env.JOB_NAME***REMOVED*** [${env.BUILD_NUMBER***REMOVED***]'"
+    def summary = "${subject***REMOVED*** (${env.BUILD_URL***REMOVED***)"
+    def details = """<p>STARTED: Job '${env.JOB_NAME***REMOVED*** [${env.BUILD_NUMBER***REMOVED***]':</p>
+             <p>Check console output at "<a href="${env.BUILD_URL***REMOVED***">${env.JOB_NAME***REMOVED*** [${env.BUILD_NUMBER***REMOVED***]</a>"</p>"""
+    // Override default values based on build status
+    if (buildStatus == 'STARTED') {
+        colorCode = '#FFFF00'
+***REMOVED*** else if (buildStatus == 'SUCCESSFUL') {
+        colorCode = '#00FF00'
+***REMOVED*** else {
+        colorCode = '#FF0000'
+***REMOVED***
+    // Send noti***REMOVED***cations
+    slackSend(color: colorCode, message: summary)
+***REMOVED***
+
+def notifyRollbar(String environment, String projectName, String commit_id, String GIT_AUTHOR_EMAIL ){
+
+             sh "aws ssm get-parameters --names /${environment***REMOVED***/${projectName***REMOVED***/ROLLBAR_TOKEN --region us-east-1 --query \"Parameters[0].Value\" > .tmp"
+             def ROLLBAR_TOKEN  = readFile('.tmp')
+             ROLLBAR_TOKEN = ROLLBAR_TOKEN.split("\n")[0]
+             stage('Notify Rollbar') {
+       sh """
+                curl --fail -X POST https://api.rollbar.com/api/1/deploy/ \
+                   -F access_token=$ROLLBAR_TOKEN \
+                   -F environment=$environment \
+                   -F revision=$commit_id \
+                   -F local_username=$GIT_AUTHOR_EMAIL
+            """
+***REMOVED***
+
+***REMOVED***
