@@ -60,9 +60,6 @@ node {
             ENVIRONMENT = "qa"
 ***REMOVED***
         stage ("deploy $ENVIRONMENT") {
-        sh "aws ssm get-parameters --names /${ENVIRONMENT***REMOVED***/${projectName***REMOVED***/DISTRIBUTION_ARRAY --region us-east-1 --query \"Parameters[0].Value\" > .tmp"
-        DISTRIBUTION_ARRAY  = readFile('.tmp')
-        DISTRIBUTION_ARRAY = DISTRIBUTION_ARRAY.split("\n")[0].replace('"', "")
 
         awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***, {FINAL_BUCKET, s3://${projectName***REMOVED***-${ENVIRONMENT***REMOVED*** ***REMOVED***,{DISTRIBUTION_ARRAY, ${DISTRIBUTION_ARRAY***REMOVED*** ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
 
@@ -78,11 +75,8 @@ node {
         if ("${CHANGE_TARGET***REMOVED***".contains("master")) {
         ENVIRONMENT = "stg"
          stage ("deploy $ENVIRONMENT") {
-         sh "aws ssm get-parameters --names /${ENVIRONMENT***REMOVED***/${projectName***REMOVED***/DISTRIBUTION_ARRAY --region us-east-1 --query \"Parameters[0].Value\" > .tmp"
-         DISTRIBUTION_ARRAY  = readFile('.tmp')
-         DISTRIBUTION_ARRAY = DISTRIBUTION_ARRAY.split("\n")[0].replace('"', "")
 
-         awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***, {FINAL_BUCKET, s3://${projectName***REMOVED***-${ENVIRONMENT***REMOVED*** ***REMOVED***,{DISTRIBUTION_ARRAY, ${DISTRIBUTION_ARRAY***REMOVED*** ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
+            awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
 
  ***REMOVED***
          notifyRollbar(ENVIRONMENT,projectName, commit_id, GIT_AUTHOR_EMAIL)
