@@ -10,7 +10,12 @@ node {
     ENVIRONMENT = "uat"
     commit_id = ""
     sh "echo ${projectName***REMOVED*** - ${projectGit***REMOVED***"
-
+        if ("${CHANGE_TARGET***REMOVED***".contains("release")) {
+                    ENVIRONMENT = "ci"
+        ***REMOVED***
+                if ("${CHANGE_TARGET***REMOVED***".contains("master")) {
+                    ENVIRONMENT = "qa"
+        ***REMOVED***
         stage('Pull') {
          git branch: "${CHANGE_BRANCH***REMOVED***", url: "git@github.com:${projectGit***REMOVED***.git"
          sh "git rev-parse HEAD > .git/commit-id"
@@ -22,23 +27,17 @@ node {
 ***REMOVED***
 
          stage('Con***REMOVED***g ***REMOVED***les') {
-                                  parallel(
-                                  uat:{createEnv("uat")***REMOVED***,
-                                  primary:{createEnv("primary")***REMOVED***
-                                  )***REMOVED***
+
+                                  qa:{createEnv("qa")***REMOVED***
+                          ***REMOVED***
 
           stage('Test and build') {
            parallel(
-                    createUATArtifact:{
+                    createQAArtifact:{
 
                     awsCodeBuild artifactLocationOverride: 'artifact-build-des', artifactNameOverride: "${commit_id***REMOVED***.zip", artifactNamespaceOverride: "NONE", artifactPackagingOverride: 'ZIP', artifactPathOverride: "uat/${projectName***REMOVED***/uat-master/", artifactTypeOverride: 'S3',   buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins',  envVariables: "[ { USRV_STAGE, uat ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED*** ]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_build', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
 
             ***REMOVED***,
-                    createPRODArtifact:{
-
-                    awsCodeBuild artifactLocationOverride: 'artifact-build-des', artifactNameOverride: "${commit_id***REMOVED***.zip", artifactNamespaceOverride: "NONE", artifactPackagingOverride: 'ZIP', artifactPathOverride: "primary/${projectName***REMOVED***/master/", artifactTypeOverride: 'S3',  buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialProd', credentialsType: 'jenkins',  envVariables: "[ { USRV_STAGE, primary ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED*** ]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_build', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
-            ***REMOVED***
-                    ,
                     testingCode:{
                     awsCodeBuild artifactLocationOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[ { USRV_STAGE, $ENVIRONMENT ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_testing', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
                          ***REMOVED***
@@ -49,15 +48,6 @@ node {
 
         stage ("deploy $ENVIRONMENT") {
                  awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
-
-        ***REMOVED***
-
-
-
-                ENVIRONMENT = 'primary'
-
-                stage ("deploy $ENVIRONMENT") {
-                awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
 
         ***REMOVED***
 
@@ -106,19 +96,4 @@ def createEnv(String environment) {
 ***REMOVED***
             sh "cat ${***REMOVED***leName***REMOVED***"
 ***REMOVED***
-def notifyRollbar(String environment, String projectName, String commit_id, String GIT_AUTHOR_EMAIL ){
-             sh "aws ssm get-parameters --names /${environment***REMOVED***/${projectName***REMOVED***/ROLLBAR_TOKEN --region us-east-1 --query \"Parameters[0].Value\" > .tmp"
-             def ROLLBAR_TOKEN  = readFile('.tmp')
-             ROLLBAR_TOKEN = ROLLBAR_TOKEN.split("\n")[0]
-             stage('Notify Rollbar') {
 
-       sh """
-                curl --fail -X POST https://api.rollbar.com/api/1/deploy/ \
-                   -F access_token=$ROLLBAR_TOKEN \
-                   -F environment=$environment \
-                   -F revision=$commit_id \
-                   -F local_username=$GIT_AUTHOR_EMAIL
-            """
-
-***REMOVED***
-***REMOVED***
