@@ -33,24 +33,16 @@ node {
 
           stage('Test and build') {
            parallel(
-                    createQAArtifact:{
-
-                    awsCodeBuild artifactLocationOverride: 'artifact-build-des', artifactNameOverride: "${commit_id***REMOVED***.zip", artifactNamespaceOverride: "NONE", artifactPackagingOverride: 'ZIP', artifactPathOverride: "qa/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/", artifactTypeOverride: 'S3',   buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins',  envVariables: "[ { USRV_STAGE, qa ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED*** ]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_build', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
-
-            ***REMOVED***,
                     testingCode:{
                     awsCodeBuild artifactLocationOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[ { USRV_STAGE, $ENVIRONMENT ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_testing', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
-                         ***REMOVED***
+                         ***REMOVED***,
+                                 build:{
+                                                     awsCodeBuild artifactLocationOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS',  buildSpecFile: '', buildTimeoutOverride: '', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[ { USRV_STAGE, $ENVIRONMENT ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_build', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'jenkins', sourceVersion: '', sseAlgorithm: 'AES256'
+                                                          ***REMOVED***
                     )
 
 
 ***REMOVED***
-
-        stage ("deploy $ENVIRONMENT") {
-                 awsCodeBuild artifactLocationOverride: '', artifactNameOverride: '', artifactNamespaceOverride: '', artifactPackagingOverride: '', artifactPathOverride: '', artifactTypeOverride: 'NO_ARTIFACTS', buildSpecFile: '', buildTimeoutOverride: '10', credentialsId: 'awsCodeBuildCredentialOK', credentialsType: 'jenkins', envParameters: '', envVariables: "[{ USRV_STAGE, $ENVIRONMENT ***REMOVED***, {USRV_COMMIT, $commit_id***REMOVED***, {USRV_BRANCH,$CHANGE_BRANCH***REMOVED***, { ARTIFACT, s3://artifact-build-des/$ENVIRONMENT/${projectName***REMOVED***/PR${PULL_REQUEST***REMOVED***/${commit_id***REMOVED***.zip ***REMOVED***]", gitCloneDepthOverride: '', projectName: 'usrv_back_java_deploy', proxyHost: '', proxyPort: '', region: 'us-east-1', sourceControlType: 'project', sourceVersion: '', sseAlgorithm: 'AES256'
-
-        ***REMOVED***
-
 
 
 ***REMOVED***
