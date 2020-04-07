@@ -15,13 +15,13 @@ public enum KushkiPeriodicitySubscriptionType {
     @Override
     public String toString(){
         return name;
-***REMOVED***
+    }
 
     KushkiPeriodicitySubscriptionType(String name) {
         this.name = name;
-***REMOVED***
+    }
 
     public String getName() {
         return name;
-***REMOVED***
-***REMOVED***
+    }
+}

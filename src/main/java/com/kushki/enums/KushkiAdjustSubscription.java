@@ -8,13 +8,13 @@ public enum KushkiAdjustSubscription {
     @Override
     public String toString(){
         return name;
-***REMOVED***
+    }
 
     KushkiAdjustSubscription(String name) {
         this.name = name;
-***REMOVED***
+    }
 
     public String getName() {
         return name;
-***REMOVED***
-***REMOVED***
+    }
+}

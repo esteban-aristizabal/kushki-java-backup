@@ -17,11 +17,11 @@ public class ExtraTaxes {
         this.tasaAeroportuaria.setAmount(tasaAeroportuaria);
         this.agenciaDeViaje.setAmount(agenciaDeViaje);
         this.iac.setAmount(iac);
-***REMOVED***
+    }
 
     public Double getTotalExtraTaxes() {
         return propina.getAmount() + tasaAeroportuaria.getAmount() + agenciaDeViaje.getAmount() + iac.getAmount();
-***REMOVED***
+    }
 
 
     public List<Map<String, String>> toHashArray() throws KushkiException {
@@ -31,21 +31,21 @@ public class ExtraTaxes {
         if (agenciaDeViaje.getAmount() > 0) extraTaxes.add(agenciaDeViaje.toHash());
         if (iac.getAmount() > 0) extraTaxes.add(iac.toHash());
         return extraTaxes;
-***REMOVED***
+    }
 
     public Tax getPropina() {
         return propina;
-***REMOVED***
+    }
 
     public Tax getTasaAeroportuaria() {
         return tasaAeroportuaria;
-***REMOVED***
+    }
 
     public Tax getAgenciaDeViaje() {
         return agenciaDeViaje;
-***REMOVED***
+    }
 
     public Tax getIac() {
         return iac;
-***REMOVED***
-***REMOVED***
+    }
+}

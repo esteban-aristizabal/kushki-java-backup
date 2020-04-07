@@ -1,6 +1,6 @@
 repositories {
     mavenCentral()
-***REMOVED***
+}
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -19,22 +19,22 @@ ext {
     versionTag = version.toString()
     githubUrl = 'https://' + githubRepo
     scmUrl = 'scm:git:git://' + githubRepo + '.git'
-***REMOVED***
+}
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.java.srcDirs
     classi***REMOVED***er = 'sources'
-***REMOVED***
+}
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classi***REMOVED***er = 'javadoc'
     from javadoc.destinationDir
-***REMOVED***
+}
 
 artifacts {
     archives javadocJar
     archives sourcesJar
-***REMOVED***
+}
 
 install {
     repositories.mavenInstaller {
@@ -48,26 +48,26 @@ install {
             organization {
                 name 'Kushki S.A.'
                 url 'https://www.kushkipagos.com'
-    ***REMOVED***
+            }
             developers {
                 developer {
                     id 'thoughtworks'
                     name 'ThoughtWorks'
                     email 'kushki@thoughtworks.com'
-        ***REMOVED***
-    ***REMOVED***
+                }
+            }
             scm {
                 url githubUrl
                 connection scmUrl
                 developerConnection scmUrl
-    ***REMOVED***
+            }
             licenses {
                 license {
                     name pkgLicense
                     url pkgLicenseUrl
                     distribution 'repo'
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+                }
+            }
+        }
+    }
+}

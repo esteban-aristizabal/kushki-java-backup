@@ -19,12 +19,12 @@ public class Amount {
         this.iva = iva;
         this.subtotalIVA0 = subtotalIVA0;
         this.ice = ice;
-***REMOVED***
+    }
 
 
     public Double getTotalAmount() {
         return subtotalIVA + subtotalIVA0 + iva + ice + extraTaxes.getTotalExtraTaxes();
-***REMOVED***
+    }
 
     public Map<String, Object> toHash() throws KushkiException {
         String validatedSubtotalIVA = Validations.validateNumber(subtotalIVA, 0, 12, "El subtotal IVA");
@@ -41,47 +41,47 @@ public class Amount {
         if (extraTaxes.size() > 0) hashMap.put("tax", extraTaxes);
         hashMap.put("Total_amount", validatedTotal);
         return hashMap;
-***REMOVED***
+    }
 
     public Double getSubtotalIVA() {
         return subtotalIVA;
-***REMOVED***
+    }
 
     public void setSubtotalIVA(Double subtotalIVA) {
         this.subtotalIVA = subtotalIVA;
-***REMOVED***
+    }
 
     public Double getIva() {
         return iva;
-***REMOVED***
+    }
 
     public void setIva(Double iva) {
         this.iva = iva;
-***REMOVED***
+    }
 
     public Double getSubtotalIVA0() {
         return subtotalIVA0;
-***REMOVED***
+    }
 
     public void setSubtotalIVA0(Double subtotalIVA0) {
         this.subtotalIVA0 = subtotalIVA0;
-***REMOVED***
+    }
 
     public Double getIce() {
         return ice;
-***REMOVED***
+    }
 
     public void setIce(Double ice) {
         this.ice = ice;
-***REMOVED***
+    }
 
     public ExtraTaxes getExtraTaxes() {
         return extraTaxes;
-***REMOVED***
+    }
 
     public void setExtraTaxes(ExtraTaxes extraTaxes) {
         this.extraTaxes = extraTaxes;
-***REMOVED***
+    }
 
 
-***REMOVED***
+}

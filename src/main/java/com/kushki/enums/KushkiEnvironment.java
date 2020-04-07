@@ -11,9 +11,9 @@ public enum KushkiEnvironment {
 
     KushkiEnvironment(String url) {
         this.url = url;
-***REMOVED***
+    }
 
     public String getUrl() {
         return url;
-***REMOVED***
-***REMOVED***
+    }
+}
