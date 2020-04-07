@@ -17,7 +17,7 @@ public class Tax {
         this.name = name;
         this.setAmount(amount);
         this.amountName = amountName;
-***REMOVED***
+    }
 
     public Map<String, String> toHash() throws KushkiException {
         Map<String, String> hashMap = new HashMap<>();
@@ -25,13 +25,13 @@ public class Tax {
         hashMap.put("taxAmount", Validations.validateNumber(this.getAmount(), 0, 12, amountName));
         hashMap.put("taxName", this.name);
         return hashMap;
-***REMOVED***
+    }
 
     public void setAmount(Double amount) {
         this.amount = amount;
-***REMOVED***
+    }
 
     public Double getAmount() {
         return this.amount;
-***REMOVED***
-***REMOVED***
+    }
+}

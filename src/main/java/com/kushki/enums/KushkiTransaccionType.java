@@ -13,13 +13,13 @@ public enum KushkiTransaccionType {
     @Override
     public String toString(){
         return url;
-***REMOVED***
+    }
 
     KushkiTransaccionType(String url) {
         this.url = url;
-***REMOVED***
+    }
 
     public String getUrl() {
         return url;
-***REMOVED***
-***REMOVED***
+    }
+}

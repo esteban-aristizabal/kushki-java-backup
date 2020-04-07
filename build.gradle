@@ -4,19 +4,19 @@ buildscript {
     repositories {
         maven {
             url "https://plugins.gradle.org/m2/"
-***REMOVED***
+        }
         mavenCentral()
-***REMOVED***
+    }
     dependencies {
         classpath ***REMOVED***les('gradle/gradle-trust-all.jar')
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1"
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
-***REMOVED***
-***REMOVED***
+    }
+}
 
 plugins {
     id "org.sonarqube" version "2.5"
-***REMOVED***
+}
 
 
 group 'com.kushkipagos'
@@ -37,15 +37,15 @@ sonarqube {
     properties {
         property "sonar.projectName", "Java :: Simple Project :: SonarQube Scanner for Gradle"
         property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
-        property "sonar.jacoco.reportPath", "${project.buildDir***REMOVED***/jacoco/test.exec"
-***REMOVED***
-***REMOVED***
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    }
+}
 
 sourceCompatibility = 1.7
 
 repositories {
     mavenCentral()
-***REMOVED***
+}
 
 con***REMOVED***gurations {
     unitTestCompile.extendsFrom testCompile
@@ -54,7 +54,7 @@ con***REMOVED***gurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
-***REMOVED***
+}
 
 dependencies {
     compile 'org.glass***REMOVED***sh.jersey.media:jersey-media-json-jackson:2.22.1',
@@ -70,24 +70,24 @@ dependencies {
             'com.googlecode.json-simple:json-simple:1.1.1',
             'org.skyscreamer:jsonassert:1.5.0'
     'pl.pragmatists:JUnitParams:1.0.4'
-***REMOVED***
+}
 
 task printVersion {
     println project.version
-***REMOVED***
+}
 
 task unitTest(type: Test) {
     include 'com/kushkipagos/unit/**'
-***REMOVED***
+}
 
 task integrationTest(type: Test) {
     include 'com/kushkipagos/integration/**'
-***REMOVED***
+}
 
 pmd {
     targetJdk = '1.7'
     toolVersion = '4.3'
-***REMOVED***
+}
 
 project.ext.pmdRuleSets = [
         'basic',
@@ -104,46 +104,46 @@ project.ext.pmdRuleSets = [
 pmdMain {
     ruleSets = pmdRuleSets + ['coupling', 'imports', 'strings']
     ruleSetFiles = ***REMOVED***les('con***REMOVED***g/pmd/pmd.xml')
-***REMOVED***
+}
 
 pmdTest {
     ruleSets = pmdRuleSets
     ruleSetFiles = ***REMOVED***les('con***REMOVED***g/pmd/pmd.xml')
-***REMOVED***
+}
 
 test {
     ignoreFailures = true
-***REMOVED***
+}
 
 ***REMOVED***ndbugs {
     toolVersion = '3.0.0'
-***REMOVED***
+}
 
 tasks.withType(Test) {
-    reports.html.destination = ***REMOVED***le("${reporting.baseDir***REMOVED***/${name***REMOVED***")
-    outputs.upToDateWhen { false ***REMOVED***
+    reports.html.destination = ***REMOVED***le("${reporting.baseDir}/${name}")
+    outputs.upToDateWhen { false }
     testLogging {
         events TestLogEvent.PASSED, TestLogEvent.SKIPPED,
                 TestLogEvent.STANDARD_ERROR, TestLogEvent.STANDARD_OUT
-***REMOVED***
-***REMOVED***
+    }
+}
 
 tasks.withType(FindBugs) {
     reports {
         xml.enabled = false
         html.enabled = true
-***REMOVED***
-***REMOVED***
+    }
+}
 
 tasks.withType(Javadoc) {
 options.addStringOption('Xdoclint:none', '-quiet')
 options.addStringOption('encoding', 'UTF-8')
 options.addStringOption('charSet', 'UTF-8')
-***REMOVED***
+}
 
 artifacts {
     archives javadocJar, sourcesJar
-***REMOVED***
+}
 
 // Create the pom con***REMOVED***guration:
 def pomCon***REMOVED***g = {
@@ -152,19 +152,19 @@ def pomCon***REMOVED***g = {
             name "The MIT License"
             url "https://opensource.org/licenses/mit-license.php"
             distribution "repo"
-***REMOVED***
-***REMOVED***
+        }
+    }
     developers {
         developer {
             name "Andres Martinez"
             email "andresm@kushkipagos.com"
-***REMOVED***
-***REMOVED***
+        }
+    }
 
     scm {
         url "https://github.com/Kushki/kushki-java"
-***REMOVED***
-***REMOVED***
+    }
+}
 
 publishing {
     publications {
@@ -181,10 +181,10 @@ publishing {
                 root.appendNode('name', 'com.kushkipagos')
                 root.appendNode('url', 'https://github.com/Kushki/kushki-java')
                 root.children().last() + pomCon***REMOVED***g
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+            }
+        }
+    }
+}
 
 bintray {
     user = "$System.env.BINTRAY_USER"
@@ -197,5 +197,5 @@ bintray {
         licenses = ['MIT']
         vcsUrl = 'https://github.com/Kushki/kushki-java.git'
         publicDownloadNumbers = false
-***REMOVED***
-***REMOVED***
+    }
+}

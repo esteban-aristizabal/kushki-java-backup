@@ -1,11 +1,11 @@
 package com.kushki;
 
 import com.kushki.enums.KushkiAdjustSubscription;
-***REMOVED***
+import com.kushki.to.Amount;
 import com.kushki.to.ContactDetail;
 import com.kushki.to.SubscriptionInfo;
 import org.json.JSONException;
-***REMOVED***
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,20 +27,20 @@ public ***REMOVED***nal class ParametersBuilder {
 
     public static JSONObject getChargeParameters(Kushki kushki, String token, Amount amount, Integer month, JSONObject metadata) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             responseObject.put(TOKEN, token);
             JSONObject amountObject = getAmountJson(kushki, amount);
             if (month != null)
                 responseObject.put(MONTHS, (int) month);
             if (metadata != null) {
                 responseObject.put(METADATA, metadata);
-    ***REMOVED***
+            }
             responseObject.put(AMOUNT, amountObject);
-***REMOVED***
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
+    }
 
     private static JSONObject getAmountJson(Kushki kushki, Amount amount) {
         JSONObject amountObject = new JSONObject();
@@ -53,7 +53,7 @@ public ***REMOVED***nal class ParametersBuilder {
         if (amount.getExtraTaxes() != null && getJSONExtraTax(amount).length() > 0)
             amountObject.put("extraTaxes", getJSONExtraTax(amount));
         return amountObject;
-***REMOVED***
+    }
 
 
     private static JSONObject getContactDetailJson(ContactDetail contactInfo) throws JSONException {
@@ -62,7 +62,7 @@ public ***REMOVED***nal class ParametersBuilder {
         contactObject.put("lastName", contactInfo.getLastName());
         contactObject.put("email", contactInfo.getEmail());
         return contactObject;
-***REMOVED***
+    }
 
 
     private static JSONObject getJSONExtraTax(Amount amount) throws JSONException {
@@ -76,31 +76,31 @@ public ***REMOVED***nal class ParametersBuilder {
         if (amount.getExtraTaxes().getAgenciaDeViaje().getAmount() != 0)
             extraTax.put("agenciaDeViaje", amount.getExtraTaxes().getAgenciaDeViaje().getAmount());
         return extraTax;
-***REMOVED***
+    }
 
     public static JSONObject getSubscriptionChargeParams(String cvv, Amount amount, JSONObject metadata, Kushki kushki) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             if (cvv != null && cvv.length() > 0)
                 responseObject.put("cvv", cvv);
             if (kushki.getLanguage() != null)
                 responseObject.put(LANGUAGE, kushki.getLanguage());
             if (metadata != null) {
                 responseObject.put(METADATA, metadata);
-    ***REMOVED***
+            }
             if (amount != null) {
                 JSONObject amountObject = getAmountJson(kushki, amount);
                 responseObject.put(AMOUNT, amountObject);
-    ***REMOVED***
-***REMOVED***
+            }
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
+    }
 
     public static JSONObject getSubscriptionParams(Kushki kushki, String token, Amount amount, JSONObject metadata, SubscriptionInfo subscriptionInfo) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             responseObject.put(TOKEN, token);
             responseObject.put(PLAN_NAME, subscriptionInfo.getPlanName());
             responseObject.put(PERIODICITY, subscriptionInfo.getPeriodicity().getName());
@@ -112,38 +112,38 @@ public ***REMOVED***nal class ParametersBuilder {
             JSONObject amountObject = getAmountJson(kushki, amount);
             if (metadata != null) {
                 responseObject.put(METADATA, metadata);
-    ***REMOVED***
+            }
             responseObject.put(AMOUNT, amountObject);
             responseObject.put(CONTACT_DETAILS, contactObject);
-***REMOVED***
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
+    }
 
     public static JSONObject getSubscriptionAdjustmentParams(Kushki kushki, Date date, int periods, KushkiAdjustSubscription type, Amount amount) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             responseObject.put("type", type.getName());
             SimpleDateFormat dateFormat = new SimpleDateFormat(YYYY_MM_DD);
             responseObject.put("date", dateFormat.format(date));
             responseObject.put("periods", periods);
             JSONObject amountObject = getAmountJson(kushki, amount);
             responseObject.put(AMOUNT, amountObject);
-***REMOVED***
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
+    }
 
     public static JSONObject getUpdateSubscriptionParams(Kushki kushki, Amount amount, JSONObject metadata, SubscriptionInfo subscriptionInfo) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             if (subscriptionInfo != null) {
                 JSONObject contactObject = getContactDetailJson( subscriptionInfo.getContactDetail());
                 if (contactObject != null) {
                     responseObject.put(CONTACT_DETAILS, contactObject);
-        ***REMOVED***
+                }
                 if (subscriptionInfo.getPlanName() != null && subscriptionInfo.getPlanName().length() > 0)
                     responseObject.put(PLAN_NAME, subscriptionInfo.getPlanName());
                 if (subscriptionInfo.getPeriodicity() != null)
@@ -151,31 +151,31 @@ public ***REMOVED***nal class ParametersBuilder {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(YYYY_MM_DD);
                 if (subscriptionInfo.getStartDate() != null)
                     responseObject.put(START_DATE, dateFormat.format(subscriptionInfo.getStartDate()));
-    ***REMOVED***
+            }
             if (kushki.getLanguage() != null)
                 responseObject.put(LANGUAGE, kushki.getLanguage());
 
             if (metadata != null) {
                 responseObject.put(METADATA, metadata);
-    ***REMOVED***
+            }
             if (amount != null) {
                 JSONObject amountObject = getAmountJson(kushki, amount);
                 responseObject.put(AMOUNT, amountObject);
-    ***REMOVED***
+            }
 
-***REMOVED***
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
+    }
 
     public static JSONObject getUpdateCardParams(String subscriptionId) throws KushkiException {
         JSONObject responseObject = new JSONObject();
-***REMOVED***
+        try {
             responseObject.put(TOKEN, subscriptionId);
-***REMOVED***
+        } catch (Exception e) {
             throw new KushkiException(REQUIRED_FIELD_IS_NULL);
-***REMOVED***
+        }
         return responseObject;
-***REMOVED***
-***REMOVED***
+    }
+}
